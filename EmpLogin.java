@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.petshelter;
 
-/**
- *
- * @author 96656
- */
+package petshelter;
+
 import java.awt.*; // Needed for BorderLayout class
 import java.awt.event.*;
 import javax.swing.*;  // Needed for Swing classes
@@ -44,7 +37,7 @@ public class EmpLogin extends JFrame {
                 emplogin.setVisible(true); 
          }
          else{
-         System.out.print(Fialed!!!);
+            JOptionPane.showMessageDialog(null, "Login Failed!", "Error", JOptionPane.ERROR_MESSAGE);
          }
     }
     
