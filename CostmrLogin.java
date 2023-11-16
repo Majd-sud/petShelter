@@ -1,5 +1,10 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.petshelter;
 
-package petshelter;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -7,9 +12,11 @@ import javax.swing.*;
 public class CostmrLogin extends JFrame {
     static Image backgroundImage;
     JPanel panel1 = new JPanel();
+    JPanel panel2 = new JPanel();
     JButton costmrLoginButt = new JButton("Log In");
     JButton createAccountButt = new JButton("Create Account");
     JLabel userName = new JLabel("Username: ");
+    JLabel noaccount = new JLabel("don't have an account? ");
     JTextField userNameField = new JTextField();
     JLabel passWordLabel = new JLabel("Password: ");
     JPasswordField costmrPasswordField = new JPasswordField();
@@ -18,23 +25,31 @@ public class CostmrLogin extends JFrame {
         setTitle("Customer Login");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                  backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
+                 // backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
         setContentPane(new BackgroundImagePanel());
 
-        setSize(300, 200);
+        setSize(300, 400);
         setLocationRelativeTo(null);
+        Dimension buttonSize = new Dimension(100, 30);
+        costmrLoginButt.setMinimumSize(buttonSize);
+        createAccountButt.setMinimumSize(buttonSize);
 
         // Set the content pane to a BackgroundImagePanel
 
-        panel1.setLayout(new GridLayout(2, 2));
+        panel1.setLayout(new GridLayout(7, 1));
         panel1.add(userName);
         panel1.add(userNameField);
         panel1.add(passWordLabel);
         panel1.add(costmrPasswordField);
-
-        add(panel1, BorderLayout.CENTER);
-        add(costmrLoginButt, BorderLayout.SOUTH);
-        add(createAccountButt, BorderLayout.SOUTH);  // Add the "Create Account" button
+         //panel1.add(costmrLoginButt);
+         //panel1.add();
+       // panel2.setLayout(new GridLayout(2, 1));
+        panel1.add(costmrLoginButt);
+        panel1.add(noaccount);
+         panel1.add(createAccountButt);
+        add(panel1, BorderLayout.NORTH);
+       // add(costmrLoginButt, BorderLayout.SOUTH);
+       //add(createAccountButt, BorderLayout.SOUTH);  // Add the "Create Account" button
 
         costmrLoginButt.addActionListener(new ActionListenerExample());
 
@@ -94,7 +109,7 @@ class RegistrationForm extends JFrame {
 
         // Set the content pane to a BackgroundImagePanel
         setContentPane(new BackgroundImagePanel());
-           backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
+           //backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
 
         setSize(420, 420);
         setLocationRelativeTo(null);

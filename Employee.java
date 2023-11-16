@@ -1,4 +1,11 @@
-package petshelter;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.petshelter;
+
+ 
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -11,7 +18,7 @@ public class Employee extends JFrame {
         setTitle("Employee Page");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
+     // backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.jpg")).getImage();
         setContentPane(new BackgroundImagePanel());
         setSize(300, 200);
         setLocationRelativeTo(null);

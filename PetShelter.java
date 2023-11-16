@@ -1,4 +1,14 @@
-package petshelter;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package com.mycompany.petshelter;
+
+/**
+ *
+ * @author 96656
+ * 
+ */
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,23 +32,27 @@ public class PetShelter extends JFrame {
 
         // Use a layout manager for panel1
         panel1.setLayout(new GridBagLayout());
+        
+        
+       
 
         // Add an EmptyBorder to create space between label and buttons
-        panel1.setBorder(new EmptyBorder(10, 0, 0, 0));
+        panel1.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         emp.addActionListener(new ActionListenerExample());
         costmr.addActionListener(new ActionListenerExample());
 
         label1.setFont(new Font("Arial", Font.BOLD, 24));
         label1.setForeground(Color.WHITE);
+      
 
         panel1.add(emp);
         panel1.add(costmr);
 
         add(label1, BorderLayout.NORTH);
         add(panel1, BorderLayout.CENTER);
-
-        backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
+      
+       // backgroundImage = new ImageIcon(PetShelter.class.getResource("/backg.jpg")).getImage();
 
         // Set a specific size for the window
         setSize(390, 520);
@@ -61,6 +75,7 @@ public class PetShelter extends JFrame {
     }
 
     public class ActionListenerExample implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == emp) {
                 EmpLogin emplogin = new EmpLogin();

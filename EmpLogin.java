@@ -1,5 +1,9 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.petshelter;
 
-package petshelter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +21,7 @@ public class EmpLogin extends JFrame {
     public EmpLogin() {
         setTitle("Employee login");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-           backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
+          // backgroundImage = new ImageIcon(PetShelter.class.getResource("/backg.png")).getImage();
 
         setSize(300, 200);
         setLocationRelativeTo(null);
