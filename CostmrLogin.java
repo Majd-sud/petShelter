@@ -1,37 +1,41 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.petshelter;
 
-
+package petshelter;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
 public class CostmrLogin extends JFrame {
+    static Image backgroundImage;
     JPanel panel1 = new JPanel();
     JButton costmrLoginButt = new JButton("Log In");
-    JButton createAccountButt = new JButton("Create Account");  
+    JButton createAccountButt = new JButton("Create Account");
     JLabel userName = new JLabel("Username: ");
-    JTextField userNameFiled = new JTextField();
+    JTextField userNameField = new JTextField();
     JLabel passWordLabel = new JLabel("Password: ");
-    JPasswordField costmrPasswordFiled = new JPasswordField();
+    JPasswordField costmrPasswordField = new JPasswordField();
 
     public CostmrLogin() {
         setTitle("Customer Login");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                  backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
+        setContentPane(new BackgroundImagePanel());
+
         setSize(300, 200);
         setLocationRelativeTo(null);
+
+        // Set the content pane to a BackgroundImagePanel
+
         panel1.setLayout(new GridLayout(2, 2));
         panel1.add(userName);
-        panel1.add(userNameFiled);
+        panel1.add(userNameField);
         panel1.add(passWordLabel);
-        panel1.add(costmrPasswordFiled);
-        add(panel1);
-        add(costmrLoginButt);
-        add(createAccountButt);  // Add the "Create Account" button
+        panel1.add(costmrPasswordField);
+
+        add(panel1, BorderLayout.CENTER);
+        add(costmrLoginButt, BorderLayout.SOUTH);
+        add(createAccountButt, BorderLayout.SOUTH);  // Add the "Create Account" button
+
         costmrLoginButt.addActionListener(new ActionListenerExample());
 
         createAccountButt.addActionListener(new ActionListener() {
@@ -45,49 +49,80 @@ public class CostmrLogin extends JFrame {
 
     public class ActionListenerExample implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            String user = userNameFiled.getText();
-            String password = new String(costmrPasswordFiled.getPassword()); // Get password as a String
-            if (user.equals("admin") && password.equals("ADMIN")) {
+            String user = userNameField.getText();
+            String password = new String(costmrPasswordField.getPassword()); // Get password as a String
+            if (user.equals("a") && password.equals("A")) {
                 Addoption costmrlogin = new Addoption();
                 costmrlogin.setVisible(true);
             } else {
-            JOptionPane.showMessageDialog(null, "Login Failed!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Login Failed!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
+    // BackgroundImagePanel class for setting the background image
+    static class BackgroundImagePanel extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
+        {
             CostmrLogin login = new CostmrLogin();
             login.setVisible(true);
-        });
+        }
     }
 }
 
 class RegistrationForm extends JFrame {
+    static Image backgroundImage;
     JLabel createAccountLabel = new JLabel("Create Your Account");
     JLabel newUsernameLabel = new JLabel("Username: ");
     JTextField newUsernameField = new JTextField();
     JLabel newPasswordLabel = new JLabel("Password: ");
     JPasswordField newPasswordField = new JPasswordField();
     JButton registerButton = new JButton("Register");
-    JPanel panelForImageAndText= new JPanel();
+    JPanel panelForImageAndText = new JPanel();
     JPanel otherPanel = new JPanel();
 
     public RegistrationForm() {
         setTitle("WELCOME");
         setLayout(new FlowLayout());
+
+        // Set the content pane to a BackgroundImagePanel
+        setContentPane(new BackgroundImagePanel());
+           backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
+
         setSize(420, 420);
         setLocationRelativeTo(null);
         add(createAccountLabel);
-       otherPanel.setLayout(new GridLayout(3,2));
+
+        otherPanel.setLayout(new GridLayout(3, 2));
         otherPanel.add(newUsernameLabel);
         otherPanel.add(newUsernameField);
-       otherPanel. add(newPasswordLabel);
-       otherPanel.add(newPasswordField);
-   otherPanel.add(registerButton);
-       add(otherPanel);
+        otherPanel.add(newPasswordLabel);
+        otherPanel.add(newPasswordField);
+        otherPanel.add(registerButton);
 
+        add(otherPanel, BorderLayout.CENTER);
+    }
 
+    // BackgroundImagePanel class for setting the background image
+    static class BackgroundImagePanel extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+
+    public static void main(String[] args) {
+       {
+            RegistrationForm registrationForm = new RegistrationForm();
+            registrationForm.setVisible(true);
+        }
     }
 }

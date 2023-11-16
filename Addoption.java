@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.petshelter;
+package petshelter;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -11,6 +7,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 public class Addoption extends JFrame {
+       static Image backgroundImage;
+
     private JPanel petPanel;         // To hold components
     private JPanel selectedPetPanel; // To hold components
     JLabel label1 = new JLabel("Pets available for adoption: ");
@@ -26,6 +24,9 @@ public class Addoption extends JFrame {
 
     public Addoption() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
+        setContentPane(new BackgroundImagePanel());
+
         setSize(300, 200);
         setLocationRelativeTo(null);
         buildPetPanel();
@@ -110,12 +111,20 @@ public class Addoption extends JFrame {
         public void actionPerformed(ActionEvent e) {
             // Open a new window or dialog to display the policy information
             JFrame policyWindow = new JFrame("Our Policy");
-        
+                          backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
+        setContentPane(new BackgroundImagePanel());
+
             policyWindow.setSize(400, 300);
             policyWindow.setLocationRelativeTo(null);
             policyWindow.setVisible(true);
         }
     }
     
-
+static class BackgroundImagePanel extends JPanel {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
 }
