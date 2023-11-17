@@ -19,7 +19,7 @@ public class CostmrLogin extends JFrame {
         setTitle("Customer Login");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                 backgroundImage = new ImageIcon(PetShelter.class.getResource("cl1png.png")).getImage();
+                 backgroundImage = new ImageIcon(PetShelter.class.getResource("11.png")).getImage();
         setContentPane(new BackgroundImagePanel());
         noaccount.setForeground(new Color(103, 49, 71)); 
         passWordLabel.setForeground(new Color(103, 49, 71)); 
@@ -38,7 +38,8 @@ createAccountButt.setForeground(darkerButtonColor);
         createAccountButt.setMinimumSize(buttonSize);
 panel1.setBackground(new Color(255, 255, 255, 0));//make panel backgrond transparent
 
-        panel1.setLayout(new GridLayout(7, 1));
+        panel1.setLayout(new GridLayout(8, 1));
+        panel1.add(new JLabel());
         panel1.add(userName);
         panel1.add(userNameField);
         panel1.add(passWordLabel);
@@ -118,7 +119,7 @@ class RegistrationForm extends JFrame {
 
         // Set the content pane to a BackgroundImagePanel
         setContentPane(new BackgroundImagePanel());
-        backgroundImage = new ImageIcon(PetShelter.class.getResource("cl1png.png")).getImage();
+        backgroundImage = new ImageIcon(PetShelter.class.getResource("12.png")).getImage();
 
         setSize(400, 430);
         setLocationRelativeTo(null);

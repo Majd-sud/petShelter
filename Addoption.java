@@ -10,23 +10,22 @@ public class Addoption extends JFrame {
        static Image backgroundImage;
 
     private JPanel petPanel = new JPanel();
-     
+    private JPanel petPanel2 = new JPanel();
 
     JLabel label1 = new JLabel("Pets available for adoption: ");
     JLabel label = new JLabel("You selected: ");
     private JScrollPane scrollPane;
     private JTextField selectedPet;
     
-  JButton policyButton = new JButton("our Policy");
+  JButton policyButton = new JButton("Our Policy");
 
     // To hold components
     private String[] pets = { "cat", "dog", "hamster", "bird" };
     private JList  petList = new JList(pets);
    
     public Addoption() {
-        setLayout(new GridLayout(2, 1));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        // backgroundImage = new ImageIcon(PetShelter.class.getResource("cus1.png")).getImage();
+         backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
         setContentPane(new BackgroundImagePanel());
         label1.setForeground(new Color(103, 49, 71)); 
         setSize(400, 430);
@@ -41,7 +40,7 @@ public class Addoption extends JFrame {
    
 label.setForeground(new Color(103, 49, 71)); 
         // Create the text field.
-        selectedPet = new JTextField(5);
+        selectedPet = new JTextField(10);
 
         // Make the text field uneditable.
         selectedPet.setEditable(false);
@@ -53,29 +52,38 @@ label.setForeground(new Color(103, 49, 71));
 
       
       petPanel.setBackground(new Color(255, 255, 255, 0));//make panel transparent
-      petPanel.setLayout(new GridLayout(7,2 ));
+petPanel.setLayout(new GridLayout(2,2 ));
    
        
        
         petPanel.add(label1);
         petPanel.add(new JLabel());
-
         petPanel.add(scrollPane);
-        petPanel.add(new JLabel());
+         petPanel.add(new JLabel());
+
+        petPanel2.setBackground(new Color(255, 255, 255, 0));//make panel transparent
+        petPanel2.setLayout(new GridLayout(5,3 ));
+        petPanel2.add(label);
+        petPanel2.add(new JLabel());
+        petPanel2.add(new JLabel());
+        petPanel2.add(selectedPet);
+        petPanel2.add(new JLabel());      
+        petPanel2.add(new JLabel());
+        petPanel2.add(new JLabel());
+        petPanel2.add(new JLabel());
+        petPanel2.add(new JLabel());
+        petPanel2.add(new JLabel());
+        petPanel2.add(new JLabel());
+        petPanel2.add(policyButton);
+
 
        
-        petPanel.add(label);
-        petPanel.add(new JLabel());
 
-        petPanel.add(selectedPet);
-        petPanel.add(new JLabel());      
         
-        petPanel.add(new JLabel());
-        petPanel.add(new JLabel());
-        petPanel.add(new JLabel());
-        petPanel.add(policyButton);
        
         add(petPanel);
+                add(petPanel2);
+
        
     }
 
@@ -114,7 +122,7 @@ label.setForeground(new Color(103, 49, 71));
         public void actionPerformed(ActionEvent e) {
             // Open a new window or dialog to display the policy information
             JFrame policyWindow = new JFrame("Our Policy");
-                         // backgroundImage = new ImageIcon(PetShelter.class.getResource("bac3.png")).getImage();
+                          backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
         setContentPane(new BackgroundImagePanel());
 
         setSize(400, 430);
@@ -127,7 +135,7 @@ static class BackgroundImagePanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-          //  g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
 }

@@ -10,7 +10,7 @@ public class EmpLogin extends JFrame {
     static Image backgroundImage;
     JPanel panel1 = new JPanel();
     JButton empLoginButt = new JButton("Log In");
-    JLabel userName = new JLabel("Username: ");
+    JLabel userName = new JLabel("Username:        ");
     JTextField userNameField = new JTextField();
     JLabel passwordLabel = new JLabel("Password: ");
     JPasswordField empPasswordField = new JPasswordField();
@@ -18,7 +18,7 @@ public class EmpLogin extends JFrame {
     public EmpLogin() {
         setTitle("Employee login");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        backgroundImage = new ImageIcon(PetShelter.class.getResource("cus1.png")).getImage();
+        backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
 panel1.setBackground(new Color(255, 255, 255, 0));
         userName.setForeground(new Color(103, 49, 71)); 
         passwordLabel.setForeground(new Color(103, 49, 71)); 
@@ -31,14 +31,15 @@ empLoginButt.setForeground(new Color(103, 49, 71));
         // Set the content pane to a BackgroundImagePanel
         setContentPane(new BackgroundImagePanel());
 
-        panel1.setLayout(new GridLayout(7, 1));
+        panel1.setLayout(new GridLayout(8, 1));
+                panel1.add(new JLabel()); 
+                panel1.add(new JLabel()); 
                 panel1.add(new JLabel()); 
 
         panel1.add(userName);
         panel1.add(userNameField);
         panel1.add(passwordLabel);
         panel1.add(empPasswordField);
-        panel1.add(new JLabel()); 
         panel1.add(empLoginButt);
         add(panel1, BorderLayout.CENTER);
 

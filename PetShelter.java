@@ -33,22 +33,24 @@ public class PetShelter extends JFrame {
         emp.setForeground(darkerButtonColor);
         costmr.setForeground(darkerButtonColor);
         
-        panel1.setLayout(new GridLayout(3, 1));
+        panel1.setLayout(new GridLayout(5, 1));
         panel1.setBorder(new EmptyBorder(10, 10, 10, 10));
         
                 panel1.setBackground(new Color(255, 255, 255, 0));
+        panel1.add(new JLabel());
 
-        
-add(label1);
+        panel1.add(new JLabel());
         panel1.add(label1);
+        
         panel1.add(emp);
+
         panel1.add(costmr);
 
       
 
       add(panel1, BorderLayout.CENTER);
 
-        backgroundImage = new ImageIcon(PetShelter.class.getResource("pin11.png")).getImage();
+        backgroundImage = new ImageIcon(PetShelter.class.getResource("11.png")).getImage();
 
         // Set a specific size for the window
         setSize(400, 430);

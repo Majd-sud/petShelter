@@ -13,7 +13,7 @@ public class Employee extends JFrame {
         setTitle("Employee Page");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-     backgroundImage = new ImageIcon(PetShelter.class.getResource("cus1.png")).getImage();
+     backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
         setContentPane(new BackgroundImagePanel());
         setSize(400, 430);
         setLocationRelativeTo(null);
@@ -31,8 +31,10 @@ public class Employee extends JFrame {
         label.setForeground(new Color(103, 49, 71)); 
         panel1.setBackground(new Color(255, 255, 255, 0));
 
-        panel1.setLayout(new GridLayout(6, 1));
-                panel1.add(new JLabel());
+        panel1.setLayout(new GridLayout(7, 1));
+                       panel1.add(new JLabel());
+
+        panel1.add(new JLabel());
 
         panel1.add(label);
         panel1.add(new JLabel());
