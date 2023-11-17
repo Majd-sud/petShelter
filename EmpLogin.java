@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.petshelter;
+
+package petshelter;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,22 +18,29 @@ public class EmpLogin extends JFrame {
     public EmpLogin() {
         setTitle("Employee login");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-          // backgroundImage = new ImageIcon(PetShelter.class.getResource("/backg.png")).getImage();
-
-        setSize(300, 200);
+        backgroundImage = new ImageIcon(PetShelter.class.getResource("cus1.png")).getImage();
+panel1.setBackground(new Color(255, 255, 255, 0));
+        userName.setForeground(new Color(103, 49, 71)); 
+        passwordLabel.setForeground(new Color(103, 49, 71)); 
+empLoginButt.setForeground(new Color(103, 49, 71)); 
+        setSize(400, 430);
         setLocationRelativeTo(null);
+        userName.setFont(new Font("Serif", Font.CENTER_BASELINE,18));
+        passwordLabel.setFont(new Font("Serif", Font.CENTER_BASELINE,18));
 
         // Set the content pane to a BackgroundImagePanel
         setContentPane(new BackgroundImagePanel());
 
-        panel1.setLayout(new GridLayout(2, 2));
+        panel1.setLayout(new GridLayout(7, 1));
+                panel1.add(new JLabel()); 
+
         panel1.add(userName);
         panel1.add(userNameField);
         panel1.add(passwordLabel);
         panel1.add(empPasswordField);
-
+        panel1.add(new JLabel()); 
+        panel1.add(empLoginButt);
         add(panel1, BorderLayout.CENTER);
-        add(empLoginButt, BorderLayout.SOUTH);
 
         empLoginButt.addActionListener(new ActionListenerExample());
     }

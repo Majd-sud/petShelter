@@ -1,10 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.petshelter;
 
-
+package petshelter;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -12,7 +7,6 @@ import javax.swing.*;
 public class CostmrLogin extends JFrame {
     static Image backgroundImage;
     JPanel panel1 = new JPanel();
-    JPanel panel2 = new JPanel();
     JButton costmrLoginButt = new JButton("Log In");
     JButton createAccountButt = new JButton("Create Account");
     JLabel userName = new JLabel("Username: ");
@@ -25,37 +19,41 @@ public class CostmrLogin extends JFrame {
         setTitle("Customer Login");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                 // backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
+                 backgroundImage = new ImageIcon(PetShelter.class.getResource("cl1png.png")).getImage();
         setContentPane(new BackgroundImagePanel());
+        noaccount.setForeground(new Color(103, 49, 71)); 
+        passWordLabel.setForeground(new Color(103, 49, 71)); 
+        userName.setForeground(new Color(103, 49, 71)); 
+                userName.setFont(new Font("Serif", Font.CENTER_BASELINE,18));
+        passWordLabel.setFont(new Font("Serif", Font.CENTER_BASELINE,18));
+        noaccount.setFont(new Font("Serif", Font.CENTER_BASELINE,15));
 
-        setSize(300, 400);
+                 Color darkerButtonColor = userName.getForeground().darker();
+costmrLoginButt.setForeground(darkerButtonColor);
+createAccountButt.setForeground(darkerButtonColor);
+        setSize(400, 430);
         setLocationRelativeTo(null);
         Dimension buttonSize = new Dimension(100, 30);
         costmrLoginButt.setMinimumSize(buttonSize);
         createAccountButt.setMinimumSize(buttonSize);
-
-        // Set the content pane to a BackgroundImagePanel
+panel1.setBackground(new Color(255, 255, 255, 0));//make panel backgrond transparent
 
         panel1.setLayout(new GridLayout(7, 1));
         panel1.add(userName);
         panel1.add(userNameField);
         panel1.add(passWordLabel);
         panel1.add(costmrPasswordField);
-         //panel1.add(costmrLoginButt);
-         //panel1.add();
-       // panel2.setLayout(new GridLayout(2, 1));
+      
         panel1.add(costmrLoginButt);
         panel1.add(noaccount);
          panel1.add(createAccountButt);
         add(panel1, BorderLayout.NORTH);
-       // add(costmrLoginButt, BorderLayout.SOUTH);
-       //add(createAccountButt, BorderLayout.SOUTH);  // Add the "Create Account" button
+
 
         costmrLoginButt.addActionListener(new ActionListenerExample());
 
         createAccountButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Open a registration window for creating a new account
                 RegistrationForm registrationForm = new RegistrationForm();
                 registrationForm.setVisible(true);
             }
@@ -91,41 +89,77 @@ public class CostmrLogin extends JFrame {
         }
     }
 }
-
 class RegistrationForm extends JFrame {
     static Image backgroundImage;
-    JLabel createAccountLabel = new JLabel("Create Your Account");
+    JLabel nameLabel = new JLabel("Name: ");
+    JTextField nameField = new JTextField();
+    JLabel emailLabel = new JLabel("Email: ");
+    JTextField emailField = new JTextField();
+    JLabel phoneLabel = new JLabel("Phone Number: ");
+    JTextField phoneField = new JTextField();
     JLabel newUsernameLabel = new JLabel("Username: ");
     JTextField newUsernameField = new JTextField();
     JLabel newPasswordLabel = new JLabel("Password: ");
     JPasswordField newPasswordField = new JPasswordField();
     JButton registerButton = new JButton("Register");
-    JPanel panelForImageAndText = new JPanel();
     JPanel otherPanel = new JPanel();
+    JLabel createAccountLabel = new JLabel(" Create your own account");
 
     public RegistrationForm() {
         setTitle("WELCOME");
         setLayout(new FlowLayout());
+        otherPanel.setBackground(new Color(255, 255, 255, 0));
+                nameLabel.setFont(new Font("Serif", Font.CENTER_BASELINE,15));
+                emailLabel.setFont(new Font("Serif", Font.CENTER_BASELINE,15));
+                phoneLabel.setFont(new Font("Serif", Font.CENTER_BASELINE,15));
+                newUsernameLabel.setFont(new Font("Serif", Font.CENTER_BASELINE,15));
+                newPasswordLabel.setFont(new Font("Serif", Font.CENTER_BASELINE,15));
+                createAccountLabel.setFont(new Font("Serif", Font.CENTER_BASELINE,15));
 
         // Set the content pane to a BackgroundImagePanel
         setContentPane(new BackgroundImagePanel());
-           //backgroundImage = new ImageIcon(PetShelter.class.getResource("backg.png")).getImage();
+        backgroundImage = new ImageIcon(PetShelter.class.getResource("cl1png.png")).getImage();
 
-        setSize(420, 420);
+        setSize(400, 430);
         setLocationRelativeTo(null);
-        add(createAccountLabel);
 
-        otherPanel.setLayout(new GridLayout(3, 2));
+        // Set foreground colors
+        createAccountLabel.setForeground(new Color(103, 49, 71)); 
+        nameLabel.setForeground(new Color(103, 49, 71)); 
+        emailLabel.setForeground(new Color(103, 49, 71)); 
+        phoneLabel.setForeground(new Color(103, 49, 71)); 
+        newUsernameLabel.setForeground(new Color(103, 49, 71)); 
+        newPasswordLabel.setForeground(new Color(103, 49, 71));  
+
+        Color darkerButtonColor = nameLabel.getForeground().darker();
+        registerButton.setForeground(darkerButtonColor);
+
+        // Set layout and add components to otherPanel
+        otherPanel.setLayout(new GridLayout(7, 2));
+otherPanel.add(new JLabel());
+otherPanel.add(new JLabel());
+
+        otherPanel.add(nameLabel);
+        otherPanel.add(nameField);
+        otherPanel.add(emailLabel);
+        otherPanel.add(emailField);
+        otherPanel.add(phoneLabel);
+        otherPanel.add(phoneField);
         otherPanel.add(newUsernameLabel);
         otherPanel.add(newUsernameField);
         otherPanel.add(newPasswordLabel);
         otherPanel.add(newPasswordField);
+
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,"Registration Successful!");
+       }
+        });
         otherPanel.add(registerButton);
 
         add(otherPanel, BorderLayout.CENTER);
     }
-
-    // BackgroundImagePanel class for setting the background image
     static class BackgroundImagePanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
