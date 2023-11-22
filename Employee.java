@@ -1,12 +1,20 @@
 package petshelter;
 
 
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-public class Employee extends JFrame {
+import java.io.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+public class Employee extends JFrame   {
            static Image backgroundImage;
+           
+            FileWriter fw;
+            FileReader fr;
+
 
     public Employee() {
         
@@ -45,28 +53,63 @@ public class Employee extends JFrame {
         //add(label);
         add(panel1);
 
-        addNewPet.addActionListener(new ActionListener() {
+        addNewPet.addActionListener(new ActionListener(){
+            
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame addNewPetWindow = new JFrame("Add New Pet");
-        setSize(400, 430);
+                setSize(400, 430);
+                addNewPetWindow.setLocationRelativeTo(null);
+             // Create components for the addNewPetWindow
+        JLabel nameLabel = new JLabel("Pet Name:");
+        JTextField nameField = new JTextField(20);
+        JButton saveButton = new JButton("Save");
+      
+        // Add components to the addNewPetWindow
+        JPanel panel = new JPanel();
+        panel.add(nameLabel);
+        panel.add(nameField);
+        panel.add(saveButton);
+        addNewPetWindow.add(panel);
+        addNewPetWindow.setSize(400, 430);
                 addNewPetWindow.setLocationRelativeTo(null);
                 addNewPetWindow.setVisible(true);
+                saveButton.addActionListener(new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
                 
-            }
-        });
+                 try{
+                
+                String petName = nameField. getText(); 
+                fw=new FileWriter("pets.txt");
+                fw.write(petName);
+                }catch (IOException exception){
+                   System.err.println("Save oops");  
+                }finally {
+                     if(fw != null)
+                         try{
+                             fw.close();
+                         } catch(IOException exception) {
+          System.err.println("Error closing writer");
+          exception.printStackTrace();
+                 }
+                 }
 
+                  
+                    }});
+                    
+            } });
         viewPets.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame viewPetsWindow = new JFrame("View Available Pets");
-        setSize(400, 430);
+                viewPetsWindow.setSize(400, 430);
                 viewPetsWindow.setLocationRelativeTo(null);
                 viewPetsWindow.setVisible(true);
+                
             }
         });
-
-        viewRequests.addActionListener(new ActionListener() {
+viewRequests.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame viewRequestsWindow = new JFrame("Show Adoption Requests");
