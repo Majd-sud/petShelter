@@ -1,12 +1,17 @@
-package petshelter;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.petshelter;
 
-
+ 
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 public class Employee extends JFrame   {
@@ -21,7 +26,7 @@ public class Employee extends JFrame   {
         setTitle("Employee Page");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-     backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
+    // backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
         setContentPane(new BackgroundImagePanel());
         setSize(400, 430);
         setLocationRelativeTo(null);
@@ -83,6 +88,7 @@ public class Employee extends JFrame   {
                 String petName = nameField. getText(); 
                 fw=new FileWriter("pets.txt");
                 fw.write(petName);
+                fw.write("/n");
                 }catch (IOException exception){
                    System.err.println("Save oops");  
                 }finally {
@@ -94,6 +100,8 @@ public class Employee extends JFrame   {
           exception.printStackTrace();
                  }
                  }
+                 
+                 
 
                   
                     }});
@@ -103,13 +111,24 @@ public class Employee extends JFrame   {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame viewPetsWindow = new JFrame("View Available Pets");
-                viewPetsWindow.setSize(400, 430);
+                viewPets.setSize(400, 430);
                 viewPetsWindow.setLocationRelativeTo(null);
                 viewPetsWindow.setVisible(true);
+                Addoption addoption=new Addoption();
+                ArrayList<String> pets = addoption.pets;
+                    try (BufferedReader reader = new BufferedReader(new FileReader("pets.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                pets.add(line);
+            }
+        } catch (IOException ee) {
+            ee.printStackTrace();
+        }
                 
             }
         });
-viewRequests.addActionListener(new ActionListener() {
+
+        viewRequests.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame viewRequestsWindow = new JFrame("Show Adoption Requests");
@@ -123,7 +142,7 @@ viewRequests.addActionListener(new ActionListener() {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            //g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
 }
