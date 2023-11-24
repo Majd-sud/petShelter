@@ -1,10 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.petshelter;
-
- 
+package petshelter;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -14,11 +8,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 public class Employee extends JFrame   {
            static Image backgroundImage;
            
             FileWriter fw;
             FileReader fr;
+            BufferedWriter bw;
+            PrintWriter out;
+            Addoption addoption=new Addoption();
+             ArrayList<String> pets = addoption.pets;
+                DefaultListModel<String> model =addoption.model;
+                JList<String> petList = addoption.petList;
+                   private JTextField selectedPet;
 
 
     public Employee() {
@@ -26,7 +29,7 @@ public class Employee extends JFrame   {
         setTitle("Employee Page");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    // backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
+    backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
         setContentPane(new BackgroundImagePanel());
         setSize(400, 430);
         setLocationRelativeTo(null);
@@ -77,18 +80,21 @@ public class Employee extends JFrame   {
         panel.add(saveButton);
         addNewPetWindow.add(panel);
         addNewPetWindow.setSize(400, 430);
-                addNewPetWindow.setLocationRelativeTo(null);
-                addNewPetWindow.setVisible(true);
-                saveButton.addActionListener(new ActionListener(){
+        addNewPetWindow.setLocationRelativeTo(null);
+         addNewPetWindow.setVisible(true);
+          saveButton.addActionListener(new ActionListener(){
                     @Override
                     public void actionPerformed(ActionEvent e) {
                 
                  try{
                 
                 String petName = nameField. getText(); 
-                fw=new FileWriter("pets.txt");
-                fw.write(petName);
-                fw.write("/n");
+                fw=new FileWriter("pets.txt",true);
+                bw=new BufferedWriter(fw);
+                out=new PrintWriter(bw);
+               // fw.write(petName);
+               out.println(petName);
+                //fw.write("\n");
                 }catch (IOException exception){
                    System.err.println("Save oops");  
                 }finally {
@@ -107,42 +113,73 @@ public class Employee extends JFrame   {
                     }});
                     
             } });
-        viewPets.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame viewPetsWindow = new JFrame("View Available Pets");
-                viewPets.setSize(400, 430);
-                viewPetsWindow.setLocationRelativeTo(null);
-                viewPetsWindow.setVisible(true);
-                Addoption addoption=new Addoption();
-                ArrayList<String> pets = addoption.pets;
-                    try (BufferedReader reader = new BufferedReader(new FileReader("pets.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                pets.add(line);
-            }
-        } catch (IOException ee) {
-            ee.printStackTrace();
-        }
-                
-            }
-        });
+     viewPets.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JFrame viewPetsWindow = new JFrame("View Available Pets");
+        JScrollPane scrollPane;
 
-        viewRequests.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFrame viewRequestsWindow = new JFrame("Show Adoption Requests");
-                viewRequestsWindow.setSize(400, 430);
-                viewRequestsWindow.setLocationRelativeTo(null);
-                viewRequestsWindow.setVisible(true);
+        viewPetsWindow.setSize(400, 430);
+        viewPetsWindow.setLocationRelativeTo(null);
+        viewPetsWindow.setVisible(true);
+
+        Addoption addoption = new Addoption();
+        addoption.loadDataFromFile("pets.txt"); // Load data from file
+        ArrayList<String> pets = addoption.pets;
+        DefaultListModel<String> model = addoption.model;
+        JList<String> petList = addoption.petList;
+
+        petList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        petList.addListSelectionListener(new Employee.ListListener());
+
+        // Update the model to reflect the changes in the 'pets' list
+        addoption.updateModel();
+
+        petList.setVisibleRowCount(3);
+        scrollPane = new JScrollPane(petList);
+        scrollPane.setForeground(new Color(103, 49, 71));
+
+        add(scrollPane); // Add the scrollPane instead of petList
+
+        // Append the new pet name to the file
+        try (FileWriter fw = new FileWriter("pets.txt", true)) {
+            for (String pet : pets) {
+                fw.write(pet);
+                fw.write(System.lineSeparator()); // Use system line separator
             }
-            });
+        } catch (IOException exception) {
+            System.err.println("Error appending to file");
+            exception.printStackTrace();
+        }
+    }
+});
+
+
+
+
     }
     static class BackgroundImagePanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            //g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
+      private class ListListener implements ListSelectionListener {
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            // Get the selected pet
+            String selection = (String) petList.getSelectedValue();
+
+            //Put the selected pet in the text field.
+            selectedPet.setText(selection);
+
+            // Show a confirmation dialog
+           // int confirmation = JOptionPane.showConfirmDialog(
+                   // Addoption.this,
+                  //  "are you sure?",
+                 //   "Adoption Confirmation",
+                    //JOptionPane.YES_NO_OPTION
+        }
+      }
 }
