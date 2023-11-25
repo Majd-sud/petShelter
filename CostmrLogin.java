@@ -4,6 +4,7 @@ package addoption;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,8 +20,11 @@ public class CostmrLogin extends JFrame {
     JTextField userNameField = new JTextField();
     JLabel passWordLabel = new JLabel("Password: ");
     JPasswordField costmrPasswordField = new JPasswordField();
+   
+    
 
-    public CostmrLogin() {
+    public CostmrLogin() throws IOException {
+        
         setTitle("Customer Login");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -60,31 +64,65 @@ panel1.setBackground(new Color(255, 255, 255, 0));//make panel backgrond transpa
 
         createAccountButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                RegistrationForm registrationForm = new RegistrationForm();
-                registrationForm.setVisible(true);
+                RegistrationForm registrationForm;
+                try {
+                    registrationForm = new RegistrationForm();
+                     registrationForm.setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(CostmrLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
+             
             }
         });
     }
 
-    public class ActionListenerExample implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            try {
+   public class ActionListenerExample implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+        try {
             String user = userNameField.getText();
-            String password = new String(costmrPasswordField.getPassword()); // Get password as a String
-            if (user.equals("a") && password.equals("A")) {
-                Addoption costmrlogin;
-                
-                    costmrlogin = new Addoption();
-                 
+            String password = new String(costmrPasswordField.getPassword());
+
+            if (verifyAccount(user, password)) {
+                Addoption costmrlogin = new Addoption();
                 costmrlogin.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Login Failed!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            }catch (IOException ex) {
-                    Logger.getLogger(CostmrLogin.class.getName()).log(Level.SEVERE, null, ex);
-                } 
+        } catch (IOException ex) {
+            Logger.getLogger(CostmrLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    private boolean verifyAccount(String username, String password) throws IOException {
+        String filePath = "\\C:\\Users\\96656\\OneDrive\\Documents\\NetBeansProjects\\Addoption\\CostmrLogin.txt";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+             String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(","); // or use the correct delimiter
+
+            if (parts.length == 2) {
+                String storedUsername = parts[0];
+                String storedPassword = parts[1];
+
+                if (storedUsername.equals(username) && storedPassword.equals(password)) {
+                    return true; // Account found
+                }
+            } else {
+                // Handle the case where the line does not have the expected format
+                System.out.println("Skipping line with unexpected format: " + line);
+            }
+                
+
+                
+            }
+        }
+
+        return false; // Account not found
+    }
+}    
+
 
     // BackgroundImagePanel class for setting the background image
     static class BackgroundImagePanel extends JPanel {
@@ -95,13 +133,9 @@ panel1.setBackground(new Color(255, 255, 255, 0));//make panel backgrond transpa
         }
     }
 
-    public static void main(String[] args) {
-        {
-            CostmrLogin login = new CostmrLogin();
-            login.setVisible(true);
-        }
-    }
+   
 }
+
 class RegistrationForm extends JFrame {
     static Image backgroundImage;
     JLabel nameLabel = new JLabel("Name: ");
@@ -113,12 +147,17 @@ class RegistrationForm extends JFrame {
     JLabel newUsernameLabel = new JLabel("Username: ");
     JTextField newUsernameField = new JTextField();
     JLabel newPasswordLabel = new JLabel("Password: ");
-    JPasswordField newPasswordField = new JPasswordField();
+    JTextField newPasswordField = new JTextField();
     JButton registerButton = new JButton("Register");
     JPanel otherPanel = new JPanel();
     JLabel createAccountLabel = new JLabel(" Create your own account");
-
-    public RegistrationForm() {
+    
+     FileWriter fileWriter;
+    BufferedWriter bufferedWriter;
+    PrintWriter out;
+    
+    public RegistrationForm() throws IOException {
+       
         setTitle("WELCOME");
         setLayout(new FlowLayout());
         otherPanel.setBackground(new Color(255, 255, 255, 0));
@@ -162,13 +201,33 @@ otherPanel.add(new JLabel());
         otherPanel.add(newUsernameField);
         otherPanel.add(newPasswordLabel);
         otherPanel.add(newPasswordField);
+         fileWriter=new FileWriter("\\C:\\Users\\96656\\OneDrive\\Documents\\NetBeansProjects\\Addoption\\CostmrLogin.txt",true);
 
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,"Registration Successful!");
+               
+                
+                   try {
+
+                      bufferedWriter= new BufferedWriter(fileWriter);
+                            out = new PrintWriter(bufferedWriter);
+                           // out.println(nameField.getText());
+                            //out.println(emailField.getText());
+                           // out.println(phoneField.getText());
+                            out.print(newUsernameField.getText()+",");
+                            out.print(newPasswordField.getText()+",");
+                            bufferedWriter.newLine();
+                            bufferedWriter.close();
+                            
+                        } catch (IOException ex) {
+                            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                   JOptionPane.showMessageDialog(null,"Registration Successful!");
+            }
+                
        }
-        });
+        );
         otherPanel.add(registerButton);
 
         add(otherPanel, BorderLayout.CENTER);
@@ -181,10 +240,5 @@ otherPanel.add(new JLabel());
         }
     }
 
-    public static void main(String[] args) {
-       {
-            RegistrationForm registrationForm = new RegistrationForm();
-            registrationForm.setVisible(true);
-        }
-    }
+   
 }

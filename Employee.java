@@ -62,7 +62,47 @@ public class Employee extends JFrame {
         add(panel1);
 
         fw = new FileWriter("C:\\Users\\96656\\OneDrive\\Documents\\NetBeansProjects\\Addoption\\pets.txt", true);
+         
+        viewRequests.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        JFrame viewRequestsWindow=new JFrame("view Requests");
+        viewRequestsWindow.setSize(400, 430);
+        viewRequestsWindow.setLocationRelativeTo(null);
+         
+          // Create a JTextArea to display the file contents
+    JTextArea textArea = new JTextArea();
+    textArea.setEditable(false);
 
+    try {
+        // Read the contents of the file
+        File file = new File("requisites.txt");
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        StringBuilder stringBuilder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            stringBuilder.append(line);
+            stringBuilder.append("\n");
+        }
+        reader.close();
+
+        // Set the file contents in the JTextArea
+        textArea.setText(stringBuilder.toString());
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+
+    // Add the JTextArea to a JScrollPane
+    JScrollPane scrollPane = new JScrollPane(textArea);
+    viewRequestsWindow.getContentPane().add(scrollPane);
+
+    viewRequestsWindow.setVisible(true);
+       
+        
+    }
+});
+        
         addNewPet.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,42 +157,55 @@ public class Employee extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    JFrame viewPetsWindow = new JFrame("View Available Pets");
-                    viewPetsWindow.setSize(400, 430);
-                    viewPetsWindow.setLocationRelativeTo(null);
-                    viewPetsWindow.setVisible(true);
-                    
-                    Addoption addoption = new Addoption();
-                    addoption.loadDataFromFile("pets.txt");
-                    
-                    petList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                    petList.addListSelectionListener(new ListListener());
-                    
-                    addoption.updateModel();
-                    
-                    JScrollPane scrollPane = new JScrollPane(petList);
-                    scrollPane.setForeground(new Color(103, 49, 71));
-                    
-                    add(scrollPane);
-                } catch (IOException ex) {
-                    Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            JFrame viewPetsWindow = new JFrame("View Available Pets");
+            viewPetsWindow.setSize(400, 430);
+            viewPetsWindow.setLocationRelativeTo(null);
+            JLabel viewPetsLabel=new JLabel("the available pets");
+            JLabel label1 =new JLabel();
+            JLabel label2 =new JLabel();
+            JLabel label3 =new JLabel(); 
+            JLabel label4 =new JLabel();
+            JPanel panel=new JPanel();
+            JPanel panel1=new JPanel();
+            viewPetsWindow.setLayout(new GridLayout(2, 1));
+            panel.setLayout(new GridLayout(3, 2));
+
+            Addoption addoption = new Addoption();
+            addoption.loadDataFromFile("\\C:\\Users\\96656\\OneDrive\\Documents\\NetBeansProjects\\Addoption\\pets.txt");
+
+           // petList.setSelectionMode(ListSelectionModel.false);
+              JScrollPane scrollPane = new JScrollPane(petList);
+            scrollPane.setForeground(new Color(103, 49, 71));
+            
+            petList.setVisibleRowCount(3);
+           
+            petList.addListSelectionListener(new ListListener());
+            petList.clearSelection();
+            addoption.updateModel();
+           
+            panel.add(viewPetsLabel);
+           
+            panel1.add(scrollPane);
+          
+           
+             viewPetsWindow.getContentPane().add(panel);  
+             viewPetsWindow.getContentPane().add(panel1); 
+             viewPetsWindow.setVisible(true);
+          //  JScrollPane scrollPane = new JScrollPane(petList);
+           // scrollPane.setForeground(new Color(103, 49, 71));
+
+            // Add the scroll pane to the content pane of viewPetsWindow
+           // viewPetsWindow.getContentPane().add(scrollPane);
+
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+                
             }
         });
     }
-   // ... Your existing code ...
-
-viewRequests.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Add the code for handling the "viewRequests" action here
-        // For example, you can open a new JFrame or perform any other action.
-        // Make sure to customize this part according to your requirements.
-        JOptionPane.showMessageDialog(Employee.this, "View Adoption Requests Action");
-    }
-});
-
-// ... Your existing code ...
+  
 
     
     static class BackgroundImagePanel extends JPanel {
@@ -165,10 +218,11 @@ viewRequests.addActionListener(new ActionListener() {
 
     private class ListListener implements ListSelectionListener {
         @Override
-        public void valueChanged(ListSelectionEvent e) {
-            String selection = (String) petList.getSelectedValue();
-            selectedPet.setText(selection);
-            // Add your confirmation dialog here if needed
+         public void valueChanged(ListSelectionEvent e) {
+        if (!e.getValueIsAdjusting()) {
+            JList<String> list = (JList<String>) e.getSource();
+            list.clearSelection();
+        }
         }
     }
      

@@ -6,6 +6,10 @@ package addoption;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -75,20 +79,30 @@ public class PetShelter extends JFrame {
         }
     }
 
-    public class ActionListenerExample implements ActionListener {
+    public class ActionListenerExample implements ActionListener   {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == emp) {
                 EmpLogin emplogin = new EmpLogin();
                 emplogin.setVisible(true);
             } else if (e.getSource() == costmr) {
-                CostmrLogin costmrrLogin = new CostmrLogin();
-                costmrrLogin.setVisible(true);
+                try {
+                    CostmrLogin costmrrLogin = new CostmrLogin();
+                    costmrrLogin.setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(PetShelter.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
 
     public static void main(String[] args) {
+     
+
+
+       
+    
+
         new PetShelter();
     }
 }
