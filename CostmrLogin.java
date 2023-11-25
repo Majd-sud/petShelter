@@ -1,7 +1,12 @@
 
-package petshelter;
+package addoption;
+
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class CostmrLogin extends JFrame {
@@ -63,14 +68,21 @@ panel1.setBackground(new Color(255, 255, 255, 0));//make panel backgrond transpa
 
     public class ActionListenerExample implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            try {
             String user = userNameField.getText();
             String password = new String(costmrPasswordField.getPassword()); // Get password as a String
             if (user.equals("a") && password.equals("A")) {
-                Addoption costmrlogin = new Addoption();
+                Addoption costmrlogin;
+                
+                    costmrlogin = new Addoption();
+                 
                 costmrlogin.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Login Failed!", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            }catch (IOException ex) {
+                    Logger.getLogger(CostmrLogin.class.getName()).log(Level.SEVERE, null, ex);
+                } 
         }
     }
 

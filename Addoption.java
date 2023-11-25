@@ -1,14 +1,25 @@
-package petshelter;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package addoption;
+
+
 
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Addoption extends JFrame {
     static Image backgroundImage;
@@ -20,7 +31,9 @@ public class Addoption extends JFrame {
     JLabel label = new JLabel("You selected: ");
     public JScrollPane scrollPane;
     private JTextField selectedPet;
-
+    FileWriter filew;
+    BufferedWriter bufferdw;
+    PrintWriter out;
     JButton policyButton = new JButton("Our Policy");
 
     // To hold components
@@ -29,7 +42,7 @@ public class Addoption extends JFrame {
     DefaultListModel<String> model = new DefaultListModel<>();
     JList<String> petList = new JList<>(model);
 
-    public Addoption() {
+    public Addoption() throws IOException {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
         setContentPane(new BackgroundImagePanel());
@@ -81,9 +94,10 @@ public class Addoption extends JFrame {
 
         add(petPanel);
         add(petPanel2);
+        filew=new FileWriter("\\C:\\Users\\96656\\OneDrive\\Documents\\NetBeansProjects\\Addoption\\requisites.txt",true);
 
         // Load pet data from file
-        loadDataFromFile("pets.txt");
+        loadDataFromFile("\\C:\\Users\\96656\\OneDrive\\Documents\\NetBeansProjects\\Addoption\\pets.txt");
         // Update the model with the loaded data
         updateModel();
     }
@@ -106,11 +120,24 @@ public class Addoption extends JFrame {
             );
 
             if (confirmation == JOptionPane.YES_OPTION) {
+                String petName = selectedPet.getText();
+                    try {
+
+                     bufferdw = new BufferedWriter(filew);
+                            out = new PrintWriter(bufferdw);
+                            out.println(petName);
+                            bufferdw.newLine();
+                            bufferdw.close();
+                            
+                        } catch (IOException ex) {
+                            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+                        } 
+                    }
                 // User confirmed, show the adoption confirmation message
                 JOptionPane.showMessageDialog(Addoption.this, "We will contact you soon", "Adoption Confirmation", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-    }
+    
 
     // Action class for the Policy button
     private class PolicyAction extends AbstractAction {
@@ -155,13 +182,13 @@ public class Addoption extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Addoption adoption = new Addoption();
             adoption.setVisible(true);
         });
-    }
+    }*/
+    
 }
-
 
 

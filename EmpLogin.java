@@ -1,9 +1,12 @@
 
-package petshelter;
+package addoption;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class EmpLogin extends JFrame {
@@ -51,9 +54,13 @@ empLoginButt.setForeground(new Color(103, 49, 71));
             String user = userNameField.getText();
             String password = new String(empPasswordField.getPassword());
             if (user.equals("a") && password.equals("A")) {
-                Employee emplogin = new Employee();
-                emplogin.setVisible(true);
-                dispose(); // Close the current login window
+                try {
+                    Employee emplogin = new Employee();
+                    emplogin.setVisible(true);
+                    dispose(); // Close the current login window
+                } catch (IOException ex) {
+                    Logger.getLogger(EmpLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Login Failed!", "Error", JOptionPane.ERROR_MESSAGE);
             }
