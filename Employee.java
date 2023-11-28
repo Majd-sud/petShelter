@@ -182,7 +182,7 @@ public class Employee extends JFrame {
             petList.addListSelectionListener(new ListListener());
             petList.clearSelection();
             addoption.updateModel();
-           
+           petList.setEnabled(false);
             panel.add(viewPetsLabel);
            
             panel1.add(scrollPane);
