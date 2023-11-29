@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package addoption;
+package petshelter;
 
 
 import java.awt.*;
@@ -14,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 
 
 public class Employee extends JFrame {
@@ -61,47 +56,48 @@ public class Employee extends JFrame {
 
         add(panel1);
 
-        fw = new FileWriter("C:\\Users\\96656\\OneDrive\\Documents\\NetBeansProjects\\Addoption\\pets.txt", true);
-         
+        fw = new FileWriter("C:\\NetBeansProjects\\PetShelter\\pets.txt", true);
+
+        
         viewRequests.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-        JFrame viewRequestsWindow=new JFrame("view Requests");
+        JFrame viewRequestsWindow = new JFrame("View Requests");
         viewRequestsWindow.setSize(400, 430);
         viewRequestsWindow.setLocationRelativeTo(null);
-         
-          // Create a JTextArea to display the file contents
-    JTextArea textArea = new JTextArea();
-    textArea.setEditable(false);
 
-    try {
-        // Read the contents of the file
-        File file = new File("requisites.txt");
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        StringBuilder stringBuilder = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            stringBuilder.append(line);
-            stringBuilder.append("\n");
+        // Create a DefaultListModel to store the file contents
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+
+        try {
+            // Read the contents of the file
+            File file = new File("requisites.txt");
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                listModel.addElement(line);
+            }
+            reader.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-        reader.close();
 
-        // Set the file contents in the JTextArea
-        textArea.setText(stringBuilder.toString());
-    } catch (IOException ex) {
-        ex.printStackTrace();
-    }
+        // Create a JList with the DefaultListModel
+        JList<String> list = new JList<>(listModel);
 
-    // Add the JTextArea to a JScrollPane
-    JScrollPane scrollPane = new JScrollPane(textArea);
-    viewRequestsWindow.getContentPane().add(scrollPane);
+        // Add the JList to a JScrollPane
+        JScrollPane scrollPane = new JScrollPane(list);
+        JPanel panel2 = new JPanel();
+                panel2.add(label);
 
-    viewRequestsWindow.setVisible(true);
-       
-        
+        panel2.add(scrollPane);
+        viewRequestsWindow.add(panel2);
+
+        viewRequestsWindow.setVisible(true);
     }
 });
+
+
         
         addNewPet.addActionListener(new ActionListener() {
             @Override
@@ -109,13 +105,13 @@ public class Employee extends JFrame {
                 JFrame addNewPetWindow = new JFrame("Add New Pet");
                 addNewPetWindow.setSize(400, 430);
                 addNewPetWindow.setLocationRelativeTo(null);
-
+                addNewPetWindow.setContentPane(new BackgroundImagePanel());
                 JLabel nameLabel = new JLabel("Pet Name:");
                 JTextField nameField = new JTextField(20);
                 JButton saveButton = new JButton("Save");
                 JButton done = new JButton("done");
-
-                JPanel panel = new JPanel();
+               
+               JPanel panel = new JPanel();
                 panel.add(nameLabel);
                 panel.add(nameField);
                 panel.add(saveButton);
@@ -169,11 +165,11 @@ public class Employee extends JFrame {
             JPanel panel1=new JPanel();
             viewPetsWindow.setLayout(new GridLayout(2, 1));
             panel.setLayout(new GridLayout(3, 2));
+           Addoption addoption = new Addoption();
+            addoption.loadDataFromFile("C:\\NetBeansProjects\\PetShelter\\pets.txt");
 
-            Addoption addoption = new Addoption();
-            addoption.loadDataFromFile("\\C:\\Users\\96656\\OneDrive\\Documents\\NetBeansProjects\\Addoption\\pets.txt");
-
-           // petList.setSelectionMode(ListSelectionModel.false);
+            
+            // petList.setSelectionMode(ListSelectionModel.false);
               JScrollPane scrollPane = new JScrollPane(petList);
             scrollPane.setForeground(new Color(103, 49, 71));
             
@@ -191,11 +187,11 @@ public class Employee extends JFrame {
              viewPetsWindow.getContentPane().add(panel);  
              viewPetsWindow.getContentPane().add(panel1); 
              viewPetsWindow.setVisible(true);
-          //  JScrollPane scrollPane = new JScrollPane(petList);
-           // scrollPane.setForeground(new Color(103, 49, 71));
-
-            // Add the scroll pane to the content pane of viewPetsWindow
-           // viewPetsWindow.getContentPane().add(scrollPane);
+           
+             //JScrollPane scrollPane = new JScrollPane(petList);
+             // scrollPane.setForeground(new Color(103, 49, 71));
+             // Add the scroll pane to the content pane of viewPetsWindow
+            // viewPetsWindow.getContentPane().add(scrollPane);
 
             
         } catch (IOException ex) {
