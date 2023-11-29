@@ -1,5 +1,6 @@
 
-package addoption;
+package petshelter;
+
 
 
 import java.awt.*;
@@ -95,7 +96,7 @@ panel1.setBackground(new Color(255, 255, 255, 0));//make panel backgrond transpa
     }
 
     private boolean verifyAccount(String username, String password) throws IOException {
-        String filePath = "\\C:\\Users\\96656\\OneDrive\\Documents\\NetBeansProjects\\Addoption\\CostmrLogin.txt";
+        String filePath = "C:\\NetBeansProjects\\PetShelter\\CostmrLogin.txt";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
              String line;
@@ -201,7 +202,7 @@ otherPanel.add(new JLabel());
         otherPanel.add(newUsernameField);
         otherPanel.add(newPasswordLabel);
         otherPanel.add(newPasswordField);
-         fileWriter=new FileWriter("\\C:\\Users\\96656\\OneDrive\\Documents\\NetBeansProjects\\Addoption\\CostmrLogin.txt",true);
+         fileWriter=new FileWriter( "C:\\NetBeansProjects\\PetShelter\\CostmrLogin.txt",true);
 
         registerButton.addActionListener(new ActionListener() {
             @Override
@@ -212,9 +213,9 @@ otherPanel.add(new JLabel());
 
                       bufferedWriter= new BufferedWriter(fileWriter);
                             out = new PrintWriter(bufferedWriter);
-                           // out.println(nameField.getText());
-                            //out.println(emailField.getText());
-                           // out.println(phoneField.getText());
+                           out.println(nameField.getText());
+                           out.println(emailField.getText());
+                           out.println(phoneField.getText());
                             out.print(newUsernameField.getText()+",");
                             out.print(newPasswordField.getText()+",");
                             bufferedWriter.newLine();

@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-package addoption;
-
+package petshelter;
 
 
 import java.awt.*;
@@ -94,10 +89,10 @@ public class Addoption extends JFrame {
 
         add(petPanel);
         add(petPanel2);
-        filew=new FileWriter("\\C:\\Users\\96656\\OneDrive\\Documents\\NetBeansProjects\\Addoption\\requisites.txt",true);
+        filew=new FileWriter("requisites.txt",true);
 
         // Load pet data from file
-        loadDataFromFile("\\C:\\Users\\96656\\OneDrive\\Documents\\NetBeansProjects\\Addoption\\pets.txt");
+        loadDataFromFile("C:\\NetBeansProjects\\PetShelter\\pets.txt");
         // Update the model with the loaded data
         updateModel();
     }
@@ -190,5 +185,4 @@ public class Addoption extends JFrame {
     }*/
     
 }
-
 

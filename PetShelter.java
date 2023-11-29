@@ -1,5 +1,4 @@
-
-package addoption;
+package petshelter;
 
 
 
@@ -25,6 +24,7 @@ public class PetShelter extends JFrame {
     public PetShelter() {
         setTitle("Pet Shelter");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setJMenuBar(createMenuBar());
 
         setLayout(new BorderLayout()); // Use BorderLayout for the frame
 
@@ -95,14 +95,49 @@ public class PetShelter extends JFrame {
             }
         }
     }
+    
+    
+    private JMenuBar createMenuBar() {
+    JMenuBar menuBar = new JMenuBar();
+
+    // Create the "File" menu
+    JMenu fileMenu = new JMenu("File");
+
+    // Create the "Exit" menu item
+    JMenuItem exitMenuItem = new JMenuItem("Exit");
+    exitMenuItem.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0); 
+        }
+    });
+
+    fileMenu.add(exitMenuItem);
+
+    JMenu helpMenu = new JMenu("Help");
+
+    JMenuItem helpMenuItem = new JMenuItem("Contact us");
+    helpMenuItem.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane.showMessageDialog (null,
+                    "Contact us via:\n\n" +
+                            "-Emai;petShelterORG60@gmail.com\n" +
+                            "- PhoneNumber;0544378198.\n" +
+                            "address;jeddaj.\n\n" +
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    });
+
+    helpMenu.add(helpMenuItem);
+
+    menuBar.add(fileMenu);
+    menuBar.add(helpMenu);
+
+    return menuBar;
+}
 
     public static void main(String[] args) {
      
-
-
-       
-    
-
         new PetShelter();
     }
 }
