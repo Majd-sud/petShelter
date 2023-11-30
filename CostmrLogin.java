@@ -1,5 +1,9 @@
 
-package petshelter;
+package addoption;
+
+
+
+
 
 
 
@@ -90,13 +94,13 @@ panel1.setBackground(new Color(255, 255, 255, 0));//make panel backgrond transpa
             } else {
                 JOptionPane.showMessageDialog(null, "Login Failed!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (IOException ex) {
+        } catch (FileIOException ex) {
             Logger.getLogger(CostmrLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    private boolean verifyAccount(String username, String password) throws IOException {
-        String filePath = "C:\\NetBeansProjects\\PetShelter\\CostmrLogin.txt";
+//our exception
+    private boolean verifyAccount(String username, String password) throws FileIOException  {
+        String filePath = "CostmrLogin.txt";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
              String line;
@@ -118,7 +122,13 @@ panel1.setBackground(new Color(255, 255, 255, 0));//make panel backgrond transpa
 
                 
             }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(CostmrLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
+        catch (IOException ex) {
+        // Catch any other IOException and throw your custom exception
+        throw new FileIOException("Error reading data from file: " + filePath, ex);
+    }
 
         return false; // Account not found
     }
@@ -202,7 +212,7 @@ otherPanel.add(new JLabel());
         otherPanel.add(newUsernameField);
         otherPanel.add(newPasswordLabel);
         otherPanel.add(newPasswordField);
-         fileWriter=new FileWriter( "C:\\NetBeansProjects\\PetShelter\\CostmrLogin.txt",true);
+         fileWriter=new FileWriter( "CostmrLogin.txt",true);
 
         registerButton.addActionListener(new ActionListener() {
             @Override

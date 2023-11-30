@@ -1,4 +1,12 @@
-package petshelter;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package addoption;
+
+
+
+
 
 
 import java.awt.*;
@@ -37,7 +45,7 @@ public class Addoption extends JFrame {
     DefaultListModel<String> model = new DefaultListModel<>();
     JList<String> petList = new JList<>(model);
 
-    public Addoption() throws IOException {
+    public Addoption() throws FileIOException {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
         setContentPane(new BackgroundImagePanel());
@@ -89,49 +97,54 @@ public class Addoption extends JFrame {
 
         add(petPanel);
         add(petPanel2);
-        filew=new FileWriter("requisites.txt",true);
+        try {
+            filew=new FileWriter("requisites.txt",true);
+        } catch (IOException ex) {
+            Logger.getLogger(Addoption.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         // Load pet data from file
-        loadDataFromFile("C:\\NetBeansProjects\\PetShelter\\pets.txt");
+        loadDataFromFile("pets.txt");
         // Update the model with the loaded data
         updateModel();
     }
 
-    class ListListener implements ListSelectionListener {
-        @Override
-        public void valueChanged(ListSelectionEvent e) {
-            // Get the selected pet
-            String selection = petList.getSelectedValue();
+ class ListListener implements ListSelectionListener {
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+        // Get the selected pet
+        String selection = petList.getSelectedValue();
 
-            // Put the selected pet in the text field.
-            selectedPet.setText(selection);
+        // Put the selected pet in the text field.
+        selectedPet.setText(selection);
 
-            // Show a confirmation dialog
-            int confirmation = JOptionPane.showConfirmDialog(
-                    Addoption.this,
-                    "Are you sure?",
-                    "Adoption Confirmation",
-                    JOptionPane.YES_NO_OPTION
-            );
+        // Show a confirmation dialog
+        int confirmation = JOptionPane.showConfirmDialog(
+                Addoption.this,
+                "Are you sure?",
+                "Adoption Confirmation",
+                JOptionPane.YES_NO_OPTION
+        );
 
-            if (confirmation == JOptionPane.YES_OPTION) {
-                String petName = selectedPet.getText();
-                    try {
-
-                     bufferdw = new BufferedWriter(filew);
-                            out = new PrintWriter(bufferdw);
-                            out.println(petName);
-                            bufferdw.newLine();
-                            bufferdw.close();
-                            
-                        } catch (IOException ex) {
-                            Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
-                        } 
-                    }
-                // User confirmed, show the adoption confirmation message
-                JOptionPane.showMessageDialog(Addoption.this, "We will contact you soon", "Adoption Confirmation", JOptionPane.INFORMATION_MESSAGE);
+        if (confirmation == JOptionPane.YES_OPTION) {
+            String petName = selectedPet.getText();
+            try {
+                // Use try-with-resources to ensure BufferedWriter is closed
+                try (BufferedWriter bufferdw = new BufferedWriter(filew);
+                     PrintWriter out = new PrintWriter(bufferdw)) {
+                    out.println(petName);
+                    bufferdw.newLine();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+            // User confirmed, show the adoption confirmation message
+            JOptionPane.showMessageDialog(Addoption.this, "We will contact you soon", "Adoption Confirmation", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+}
+
     
 
     // Action class for the Policy button
@@ -157,18 +170,20 @@ public class Addoption extends JFrame {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
-
-    public void loadDataFromFile(String filename) {
-        // Implement code to read data from the file and populate the 'pets' list.
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                pets.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+//our exception
+   public void loadDataFromFile(String filename) throws FileIOException {
+    // Implement code to read data from the file and populate the 'pets' list.
+    try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            pets.add(line);
         }
+    } catch (IOException e) {
+        // Throw a custom exception with a more informative error message
+        throw new FileIOException("Error reading data from file: " + filename, e);
     }
+}
+
 
     public void updateModel() {
         model.clear(); // Clear the existing items in the model
@@ -185,4 +200,3 @@ public class Addoption extends JFrame {
     }*/
     
 }
-
