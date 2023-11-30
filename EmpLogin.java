@@ -23,7 +23,7 @@ public class EmpLogin extends JFrame {
     public EmpLogin() {
         setTitle("Employee login");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
+        backgroundImage = new ImageIcon(PetShelter.class.getResource("MAIN AND CUSTOMER LOGIN.png")).getImage();
 panel1.setBackground(new Color(255, 255, 255, 0));
         userName.setForeground(new Color(103, 49, 71)); 
         passwordLabel.setForeground(new Color(103, 49, 71)); 

@@ -34,7 +34,7 @@ public class Employee extends JFrame {
             setTitle("Employee Page");
             setLayout(new FlowLayout());
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            backgroundImage = new ImageIcon(Employee.class.getResource("13.png")).getImage();
+            backgroundImage = new ImageIcon(Employee.class.getResource("CUSTOMER ADOPT.png")).getImage();
             setContentPane(new BackgroundImagePanel());
             setSize(400, 430);
             setLocationRelativeTo(null);
@@ -71,6 +71,7 @@ public class Employee extends JFrame {
                     JFrame viewRequestsWindow = new JFrame("View Requests");
                     viewRequestsWindow.setSize(400, 430);
                     viewRequestsWindow.setLocationRelativeTo(null);
+                    viewRequestsWindow.setContentPane(new BackgroundImagePanel());
 
                     // Create a DefaultListModel to store the file contents
                     DefaultListModel<String> listModel = new DefaultListModel<>();
@@ -94,13 +95,21 @@ public class Employee extends JFrame {
 
                     // Add the JList to a JScrollPane
                     JScrollPane scrollPane = new JScrollPane(list);
-                    JLabel label1=new JLabel("                                   ");
-                    JPanel panel2 = new JPanel();
-                    panel2.add(label);
-                    panel2.add(label1);
+                   
+                    JPanel panel = new JPanel();
+                     panel.setLayout(new GridLayout(7,3));
+                     panel.setBackground(new Color(255, 255, 255, 0)); // make panel transparent
+                     JLabel label1=new JLabel("Requested Pets");
+                      label1.setForeground(new Color(103, 49, 71));
+                      label1.setFont(new Font("Serif", Font.CENTER_BASELINE, 20));
+                      
+                    panel.add(new JLabel());
+                    
+                    
+                    panel.add(label1);
 
-                    panel2.add(scrollPane);
-                    viewRequestsWindow.add(panel2);
+                    panel.add(scrollPane);
+                    viewRequestsWindow.add(panel);
 
                     viewRequestsWindow.setVisible(true);
                 }
@@ -116,9 +125,22 @@ public class Employee extends JFrame {
                     JLabel nameLabel = new JLabel("Pet Name:");
                     JTextField nameField = new JTextField(20);
                     JButton saveButton = new JButton("Save");
+                  
                     JButton done = new JButton("done");
+                    
+                    nameLabel.setForeground(new Color(103, 49, 71));
+                    nameLabel.setFont(new Font("Serif", Font.CENTER_BASELINE, 20));
+                    done.setForeground(new Color(103, 49, 71));
+                    saveButton.setForeground(new Color(103, 49, 71));
 
                     JPanel panel = new JPanel();
+                    panel.setBackground(new Color(255, 255, 255, 0)); // make panel transparent
+                    panel.setLayout(new GridLayout(7,1));
+                    panel.add(new JLabel());
+                    panel.add(new JLabel());
+                     panel.add(new JLabel());
+                    
+                    
                     panel.add(nameLabel);
                     panel.add(nameField);
                     panel.add(saveButton);
@@ -161,15 +183,18 @@ public class Employee extends JFrame {
                     JFrame viewPetsWindow = new JFrame("View Available Pets");
                     viewPetsWindow.setSize(400, 430);
                     viewPetsWindow.setLocationRelativeTo(null);
+                    viewPetsWindow.setContentPane(new BackgroundImagePanel());
                     JLabel viewPetsLabel = new JLabel("the available pets");
-                    JLabel label1 = new JLabel();
-                    JLabel label2 = new JLabel("                                              ");
-                    JLabel label3 = new JLabel("       ");
-                    JLabel label4 = new JLabel("                                              ");
+                    viewPetsLabel.setForeground(new Color(103, 49, 71));
+                     viewPetsLabel.setFont(new Font("Serif", Font.CENTER_BASELINE, 20));
+                   
                     JPanel panel = new JPanel();
-                    JPanel panel1 = new JPanel();
-                    viewPetsWindow.setLayout(new GridLayout(2, 1));
-                    panel.setLayout(new FlowLayout());
+                    panel.setBackground(new Color(255, 255, 255, 0)); // make panel transparent
+                    
+                   
+                    
+                    
+                    
                     // Addoption addoption = new Addoption();
                     try {
                         // existing code
@@ -177,21 +202,32 @@ public class Employee extends JFrame {
                         ArrayList<String> pets = addoption.pets;
                         DefaultListModel<String> model = addoption.model;
                         JList<String> petList = addoption.petList;
+                        // Set selection mode to allow only a single selection
+                        petList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+                        // Disable the list to make it unclickable
+                        petList.setEnabled(false);
+                       
                         addoption.loadDataFromFile("pets.txt");
                         
                         
-                        // petList.setSelectionMode(ListSelectionModel.false);
+                        
                         JScrollPane scrollPane = new JScrollPane(petList);
                         scrollPane.setForeground(new Color(103, 49, 71));
-                        panel.add(label3);
+                         panel.setLayout(new GridLayout(5,1));
+                        
+                       panel.add(new JLabel());
+                       
+                        
+                        
                         panel.add(viewPetsLabel);
-                        panel.add(label4);
-                         panel.add(label2);
-
+                        
                         panel.add(scrollPane);
+                        
 
-                        viewPetsWindow.getContentPane().add(panel);
-                        viewPetsWindow.getContentPane().add(panel1);
+                        viewPetsWindow.add(panel);
+                         
+                        
                         viewPetsWindow.setVisible(true);
                         
                         // other code
