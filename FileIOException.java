@@ -1,5 +1,4 @@
-
-package addoption;
+package petshelter;
 
 // Custom exception class for handling file input/output errors
 public class FileIOException extends Exception {

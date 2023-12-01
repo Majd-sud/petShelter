@@ -1,4 +1,4 @@
-package addoption;
+package petshelter;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// Employee class for handling employee functionalities
 public class Employee extends JFrame {
 
     static Image backgroundImage;
+    // FileWriter for writing pet data to the "pets.txt" file
     FileWriter fw;
     BufferedWriter bw;
     PrintWriter out;
@@ -76,6 +78,7 @@ public class Employee extends JFrame {
                         File file = new File("requisites.txt");
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         String line;
+                        //read pets till the end of file
                         while ((line = reader.readLine()) != null) {
                             listModel.addElement(line);
                         }
@@ -123,7 +126,7 @@ public class Employee extends JFrame {
                     JButton saveButton = new JButton("Save");
                     JButton done = new JButton("done");
 
-                    // Styling adjustments
+                    // Styling labels and buttons
                     nameLabel.setForeground(new Color(103, 49, 71));
                     nameLabel.setFont(new Font("Serif", Font.CENTER_BASELINE, 20));
                     done.setForeground(new Color(103, 49, 71));
@@ -240,9 +243,10 @@ public class Employee extends JFrame {
     static class BackgroundImagePanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
+            //call paintComponet method from JPanel class
             super.paintComponent(g);
+             //rendering the image onto the panel, scaling it to fill the entire panel.
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
 }
-

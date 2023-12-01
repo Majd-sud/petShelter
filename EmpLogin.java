@@ -1,4 +1,4 @@
-package addoption;
+package petshelter;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,6 +8,8 @@ import javax.swing.*;
 public class EmpLogin extends JFrame {
 
     static Image backgroundImage;
+     
+// Components for Employee Login window
     JPanel empLogPanel = new JPanel();
     JButton empLoginButt = new JButton("Log In");
     JLabel userName = new JLabel("Username:        ");
@@ -17,9 +19,14 @@ public class EmpLogin extends JFrame {
 
     // Constructor for EmpLogin class
     public EmpLogin() {
+        // Set frame properties
         setTitle("Employee login");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        // Set the background image
         backgroundImage = new ImageIcon(PetShelter.class.getResource("17n.png")).getImage();
+         // Set the content pane to a BackgroundImagePanel
+        setContentPane(new BackgroundImagePanel());
+        
         empLogPanel.setBackground(new Color(255, 255, 255, 0));
         userName.setForeground(new Color(103, 49, 71));
         passwordLabel.setForeground(new Color(103, 49, 71));
@@ -29,13 +36,11 @@ public class EmpLogin extends JFrame {
         userName.setFont(new Font("Serif", Font.CENTER_BASELINE, 18));
         passwordLabel.setFont(new Font("Serif", Font.CENTER_BASELINE, 18));
 
-        // Set the content pane to a BackgroundImagePanel
-        setContentPane(new BackgroundImagePanel());
-
+       
+         // Layout setup
         empLogPanel.setLayout(new GridLayout(7, 1));
         empLogPanel.add(new JLabel());
         empLogPanel.add(new JLabel());
-
         empLogPanel.add(userName);
         empLogPanel.add(userNameTfield);
         empLogPanel.add(passwordLabel);
@@ -52,6 +57,8 @@ public class EmpLogin extends JFrame {
 
         // Method invoked when the "Log In" button is clicked
         public void actionPerformed(ActionEvent e) {
+            
+            // Get entered username and password
             String user = userNameTfield.getText();
             String password = new String(empPasswordField.getPassword());
 
@@ -68,13 +75,15 @@ public class EmpLogin extends JFrame {
         }
     }
 
-    // BackgroundImagePanel class for setting the background image
+    // Custom BackgroundImagePanel class for setting the background image
     static class BackgroundImagePanel extends JPanel {
 
         // Method for painting the background image
         @Override
         protected void paintComponent(Graphics g) {
+          //call paintComponet method from JPanel class
             super.paintComponent(g);
+            //rendering the image onto the panel, scaling it to fill the entire panel.
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }

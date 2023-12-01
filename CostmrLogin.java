@@ -1,4 +1,4 @@
-package addoption;
+package petshelter;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -11,7 +11,10 @@ import javax.swing.*;
 // Customer login class
 public class CostmrLogin extends JFrame {
 
+    // Background image for the login window
     static Image backgroundImage;
+    
+     // Components for the customer login window
     JPanel customerLogPanel = new JPanel();
     JButton costmrLoginButt = new JButton("Log In");
     JButton createAccountButt = new JButton("Create Account");
@@ -27,9 +30,13 @@ public class CostmrLogin extends JFrame {
         // JFrame setup
         setTitle("Customer Login");
         setLayout(new FlowLayout());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       
+        // Set the background image
         backgroundImage = new ImageIcon(PetShelter.class.getResource("16o.png")).getImage();
         setContentPane(new BackgroundImagePanel());
+        
+        // Set label and button style
         noAccLabel.setForeground(new Color(103, 49, 71));
         passwordLabel.setForeground(new Color(103, 49, 71));
         userNameLabel.setForeground(new Color(103, 49, 71));
@@ -41,10 +48,11 @@ public class CostmrLogin extends JFrame {
         createAccountButt.setForeground(new Color(103, 49, 71));
         setSize(400, 430);
         setLocationRelativeTo(null);
-
-        // Set background panel
-        customerLogPanel.setBackground(new Color(255, 255, 255, 0));//make panel background transparent
-
+        
+        //make panel background transparent
+        customerLogPanel.setBackground(new Color(255, 255, 255, 0));
+        
+        // Layout setup
         customerLogPanel.setLayout(new GridLayout(10, 1));
         customerLogPanel.add(new JLabel());
         customerLogPanel.add(new JLabel());
@@ -140,7 +148,10 @@ public class CostmrLogin extends JFrame {
 // RegistrationForm class for customer registration
 class RegistrationForm extends JFrame {
 
-    static Image backgroundImage;
+   // Background image for the registration form
+  static Image backgroundImage;
+  
+    // Components for the registration form
     JLabel nameLabel = new JLabel("Name: ");
     JTextField nameField = new JTextField();
     JLabel emailLabel = new JLabel("Email: ");
@@ -154,7 +165,8 @@ class RegistrationForm extends JFrame {
     JButton registerButton = new JButton("Register");
     JPanel newCustomerPanel = new JPanel();
     JLabel createAccountLabel = new JLabel(" Create your own account");
-
+     
+    // File writer for customer registration data
     FileWriter fileWriter;
     BufferedWriter bufferedWriter;
     PrintWriter out;
@@ -241,7 +253,9 @@ class RegistrationForm extends JFrame {
 
         @Override
         protected void paintComponent(Graphics g) {
+             //call paintComponet method from JPanel class
             super.paintComponent(g);
+            //rendering the image onto the panel, scaling it to fill the entire panel.
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }

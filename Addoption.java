@@ -1,5 +1,4 @@
-
-package addoption;
+package petshelter;
 
 
 import java.awt.*;
@@ -17,26 +16,33 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// Adoption window class
 public class Addoption extends JFrame {
-
+    // Background image for the adoption window
     static Image backgroundImage;
+    
+    // Panels for organizing UI components
      JPanel upperPetPanel = new JPanel();
      JPanel lowerPetPanel = new JPanel();
+   
+     // Labels, buttons, and text fields
     JLabel availablePetaLabel = new JLabel("Pets available for adoption: ");
     JLabel label = new JLabel("You selected: ");
      JScrollPane scrollPane;
      JTextField selectedPet;
-    FileWriter filew;
-    BufferedWriter bufferdw;
-    PrintWriter out;
+    // FileWriter for writing adoption data to a file
+     FileWriter filew;
+    
     JButton policyButton = new JButton("Our Policy");
 
     // To hold components
     public ArrayList<String> pets = new ArrayList<>();
-
+    
+    // DefaultListModel and JList for displaying available pets
     DefaultListModel<String> model = new DefaultListModel<>();
     JList<String> petList = new JList<>(model);
-
+    
+    // Constructor for Addoption class
     public Addoption() throws FileIOException {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
@@ -44,11 +50,13 @@ public class Addoption extends JFrame {
         availablePetaLabel.setForeground(new Color(103, 49, 71));
         setSize(400, 430);
         setLocationRelativeTo(null);
-
+        
+        // Configure petList
         petList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         petList.addListSelectionListener(new ListListener());
         petList.setVisibleRowCount(3);
         scrollPane = new JScrollPane(petList);
+        
         scrollPane.setForeground(new Color(103, 49, 71));
         policyButton.setForeground(new Color(103, 49, 71));
         label.setForeground(new Color(103, 49, 71));
@@ -59,19 +67,20 @@ public class Addoption extends JFrame {
 
         // Make the text field uneditable.
         selectedPet.setEditable(false);
-
+         
+        // ActionListener for the "Our Policy" button
         policyButton.addActionListener(new PolicyAction());
-
+         
+        //  set Layout 
         upperPetPanel.setLayout(new GridLayout(2, 2));
-
         upperPetPanel.add(availablePetaLabel);
         upperPetPanel.add(new JLabel());
         upperPetPanel.add(scrollPane);
         upperPetPanel.add(new JLabel());
-
+        
+        //  set Layout
         lowerPetPanel.setBackground(new Color(255, 255, 255, 0)); // make panel transparent
         lowerPetPanel.setLayout(new GridLayout(5, 3));
-
         lowerPetPanel.add(label);
         lowerPetPanel.add(new JLabel());
         lowerPetPanel.add(new JLabel());
@@ -84,10 +93,12 @@ public class Addoption extends JFrame {
         lowerPetPanel.add(new JLabel());
         lowerPetPanel.add(new JLabel());
         lowerPetPanel.add(policyButton);
-
+        
+        // Add panels to the frame
         add(upperPetPanel);
         add(lowerPetPanel);
         try {
+            // Initialize FileWriter for writing adoption data to a file
             filew = new FileWriter("requisites.txt", true);
         } catch (IOException ex) {
             Logger.getLogger(Addoption.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,7 +109,8 @@ public class Addoption extends JFrame {
         // Update the model with the loaded data
         updateModel();
     }
-
+    
+    // ListListener class for handling pet selection
     class ListListener implements ListSelectionListener {
 
         @Override
@@ -136,7 +148,7 @@ public class Addoption extends JFrame {
         }
     }
 
-    // Action class for the Policy button
+     // PolicyAction class for handling the "Our Policy" button
     private class PolicyAction extends AbstractAction {
 
         @Override
@@ -152,17 +164,20 @@ public class Addoption extends JFrame {
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }
-
+    
+     // BackgroundImagePanel class for setting the background image
     static class BackgroundImagePanel extends JPanel {
 
         @Override
         protected void paintComponent(Graphics g) {
+            //call paintComponet method from JPanel class
             super.paintComponent(g);
+             //rendering the image onto the panel, scaling it to fill the entire panel.
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
-//our exception
 
+    // Custom exception for file-related errors
     public void loadDataFromFile(String filename) throws FileIOException {
         // Implement code to read data from the file and populate the 'pets' list.
         try ( BufferedReader reader = new BufferedReader(new FileReader(filename))) {
@@ -175,7 +190,8 @@ public class Addoption extends JFrame {
             throw new FileIOException("Error reading data from file: " + filename, e);
         }
     }
-
+    
+    // Method to update the JList model with loaded data
     public void updateModel() {
         model.clear(); // Clear the existing items in the model
         for (String pet : pets) {
