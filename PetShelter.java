@@ -1,6 +1,4 @@
-
-package addoption;
-
+package petshelter;
 
 
 
@@ -8,7 +6,6 @@ package addoption;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,9 +37,9 @@ public class PetShelter extends JFrame {
         label1.setForeground(new Color(103, 49, 71)); // Brown color using RGB values
      
          Color darkerButtonColor = label1.getForeground().darker();
-        emp.setForeground(darkerButtonColor);
-        costmr.setForeground(darkerButtonColor);
-        
+        emp.setForeground(new Color(103, 49, 71)); 
+costmr.setForeground(new Color(103, 49, 71)); 
+
         panel1.setLayout(new GridLayout(5, 1));
         panel1.setBorder(new EmptyBorder(10, 10, 10, 10));
         

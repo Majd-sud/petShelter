@@ -1,5 +1,4 @@
-
-package addoption;
+package petshelter;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -8,38 +7,27 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 public class Employee extends JFrame {
+
     static Image backgroundImage;
     FileWriter fw;
     BufferedWriter bw;
     PrintWriter out;
-     
-   
-
-
-            
-    
-      
-   
-    private JTextField selectedPet;
 
     public Employee() {
-      
         try {
-            
-            
+
             setTitle("Employee Page");
             setLayout(new FlowLayout());
             setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            backgroundImage = new ImageIcon(Employee.class.getResource("CUSTOMER ADOPT.png")).getImage();
+            //load image
+            backgroundImage = new ImageIcon(Employee.class.getResource("17n.png")).getImage();
             setContentPane(new BackgroundImagePanel());
             setSize(400, 430);
             setLocationRelativeTo(null);
 
-            JPanel panel1 = new JPanel();
+            JPanel emplMainPanel = new JPanel();
             JButton addNewPet = new JButton("Add New Pet");
             JButton viewPets = new JButton("View Available Pets");
             JButton viewRequests = new JButton("Show Adoption Requests");
@@ -50,21 +38,24 @@ public class Employee extends JFrame {
             viewPets.setForeground(new Color(103, 49, 71));
             viewRequests.setForeground(new Color(103, 49, 71));
             label.setForeground(new Color(103, 49, 71));
-            panel1.setBackground(new Color(255, 255, 255, 0));
+            emplMainPanel.setBackground(new Color(255, 255, 255, 0));
+            emplMainPanel.setLayout(new GridLayout(7, 1));
+            emplMainPanel.add(new JLabel());
+            emplMainPanel.add(new JLabel());
+            emplMainPanel.add(label);
+            emplMainPanel.add(new JLabel());
+            emplMainPanel.add(addNewPet);
+            emplMainPanel.add(viewPets);
+            emplMainPanel.add(viewRequests);
 
-            panel1.setLayout(new GridLayout(7, 1));
-            panel1.add(new JLabel());
-            panel1.add(new JLabel());
-            panel1.add(label);
-            panel1.add(new JLabel());
-            panel1.add(addNewPet);
-            panel1.add(viewPets);
-            panel1.add(viewRequests);
+            add(emplMainPanel);
 
-            add(panel1);
-
+//Initializes a FileWriter to append to the "pets.txt" file.
             fw = new FileWriter("pets.txt", true);
-
+         
+            /*Opens viewRequests window
+s         howing adoption requests by reading the content of the
+      "requisites.txt" file and displaying it in a JList.     */
             viewRequests.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -91,21 +82,20 @@ public class Employee extends JFrame {
 
                     // Create a JList with the DefaultListModel
                     JList<String> list = new JList<>(listModel);
-                     list.setVisibleRowCount(3);
+                    list.setVisibleRowCount(3);
 
                     // Add the JList to a JScrollPane
                     JScrollPane scrollPane = new JScrollPane(list);
-                   
+
                     JPanel panel = new JPanel();
-                     panel.setLayout(new GridLayout(7,3));
-                     panel.setBackground(new Color(255, 255, 255, 0)); // make panel transparent
-                     JLabel label1=new JLabel("Requested Pets");
-                      label1.setForeground(new Color(103, 49, 71));
-                      label1.setFont(new Font("Serif", Font.CENTER_BASELINE, 20));
-                      
+                    panel.setLayout(new GridLayout(7, 3));
+                    panel.setBackground(new Color(255, 255, 255, 0)); // make panel transparent
+                    JLabel label1 = new JLabel("Requested Pets");
+                    label1.setForeground(new Color(103, 49, 71));
+                    label1.setFont(new Font("Serif", Font.CENTER_BASELINE, 20));
+
                     panel.add(new JLabel());
-                    
-                    
+
                     panel.add(label1);
 
                     panel.add(scrollPane);
@@ -125,9 +115,9 @@ public class Employee extends JFrame {
                     JLabel nameLabel = new JLabel("Pet Name:");
                     JTextField nameField = new JTextField(20);
                     JButton saveButton = new JButton("Save");
-                  
+
                     JButton done = new JButton("done");
-                    
+
                     nameLabel.setForeground(new Color(103, 49, 71));
                     nameLabel.setFont(new Font("Serif", Font.CENTER_BASELINE, 20));
                     done.setForeground(new Color(103, 49, 71));
@@ -135,12 +125,11 @@ public class Employee extends JFrame {
 
                     JPanel panel = new JPanel();
                     panel.setBackground(new Color(255, 255, 255, 0)); // make panel transparent
-                    panel.setLayout(new GridLayout(7,1));
+                    panel.setLayout(new GridLayout(7, 1));
                     panel.add(new JLabel());
                     panel.add(new JLabel());
-                     panel.add(new JLabel());
-                    
-                    
+                    panel.add(new JLabel());
+
                     panel.add(nameLabel);
                     panel.add(nameField);
                     panel.add(saveButton);
@@ -186,15 +175,11 @@ public class Employee extends JFrame {
                     viewPetsWindow.setContentPane(new BackgroundImagePanel());
                     JLabel viewPetsLabel = new JLabel("the available pets");
                     viewPetsLabel.setForeground(new Color(103, 49, 71));
-                     viewPetsLabel.setFont(new Font("Serif", Font.CENTER_BASELINE, 20));
-                   
+                    viewPetsLabel.setFont(new Font("Serif", Font.CENTER_BASELINE, 20));
+
                     JPanel panel = new JPanel();
                     panel.setBackground(new Color(255, 255, 255, 0)); // make panel transparent
-                    
-                   
-                    
-                    
-                    
+
                     // Addoption addoption = new Addoption();
                     try {
                         // existing code
@@ -207,40 +192,27 @@ public class Employee extends JFrame {
 
                         // Disable the list to make it unclickable
                         petList.setEnabled(false);
-                       
+
                         addoption.loadDataFromFile("pets.txt");
-                        
-                        
-                        
+
                         JScrollPane scrollPane = new JScrollPane(petList);
                         scrollPane.setForeground(new Color(103, 49, 71));
-                         panel.setLayout(new GridLayout(5,1));
-                        
-                       panel.add(new JLabel());
-                       
-                        
-                        
+                        panel.setLayout(new GridLayout(5, 1));
+
+                        panel.add(new JLabel());
+
                         panel.add(viewPetsLabel);
-                        
+
                         panel.add(scrollPane);
-                        
 
                         viewPetsWindow.add(panel);
-                         
-                        
+
                         viewPetsWindow.setVisible(true);
-                        
+
                         // other code
                     } catch (FileIOException ex) {
                         ex.printStackTrace(); // handle the exception appropriately
                     }
-                    
-                    
-                    //JScrollPane scrollPane = new JScrollPane(petList);
-                    // scrollPane.setForeground(new Color(103, 49, 71));
-                    // Add the scroll pane to the content pane of viewPetsWindow
-                    // viewPetsWindow.getContentPane().add(scrollPane);
-
 
                 }
             });
@@ -250,6 +222,7 @@ public class Employee extends JFrame {
     }
 
     static class BackgroundImagePanel extends JPanel {
+
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -257,13 +230,4 @@ public class Employee extends JFrame {
         }
     }
 
-    private class ListListener implements ListSelectionListener {
-        @Override
-        public void valueChanged(ListSelectionEvent e) {
-            if (!e.getValueIsAdjusting()) {
-                JList<String> list = (JList<String>) e.getSource();
-                list.clearSelection();
-            }
-        }
-    }
 }

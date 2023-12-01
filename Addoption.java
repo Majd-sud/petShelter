@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-package addoption;
-
-
-
-
-
+package petshelter;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -25,15 +16,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Addoption extends JFrame {
+
     static Image backgroundImage;
-
-    private JPanel petPanel = new JPanel();
-    private JPanel petPanel2 = new JPanel();
-
-    JLabel label1 = new JLabel("Pets available for adoption: ");
+     JPanel upperPetPanel = new JPanel();
+     JPanel lowerPetPanel = new JPanel();
+    JLabel availablePetaLabel = new JLabel("Pets available for adoption: ");
     JLabel label = new JLabel("You selected: ");
-    public JScrollPane scrollPane;
-    private JTextField selectedPet;
+     JScrollPane scrollPane;
+     JTextField selectedPet;
     FileWriter filew;
     BufferedWriter bufferdw;
     PrintWriter out;
@@ -49,7 +39,7 @@ public class Addoption extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         backgroundImage = new ImageIcon(PetShelter.class.getResource("13.png")).getImage();
         setContentPane(new BackgroundImagePanel());
-        label1.setForeground(new Color(103, 49, 71));
+        availablePetaLabel.setForeground(new Color(103, 49, 71));
         setSize(400, 430);
         setLocationRelativeTo(null);
 
@@ -58,8 +48,9 @@ public class Addoption extends JFrame {
         petList.setVisibleRowCount(3);
         scrollPane = new JScrollPane(petList);
         scrollPane.setForeground(new Color(103, 49, 71));
-
+        policyButton.setForeground(new Color(103, 49, 71));
         label.setForeground(new Color(103, 49, 71));
+        upperPetPanel.setBackground(new Color(255, 255, 255, 0)); // make panel transparent
 
         // Create the text field.
         selectedPet = new JTextField(10);
@@ -67,38 +58,35 @@ public class Addoption extends JFrame {
         // Make the text field uneditable.
         selectedPet.setEditable(false);
 
-        Color darkerButtonColor = label1.getForeground().darker();
-        policyButton.setForeground(darkerButtonColor);
         policyButton.addActionListener(new PolicyAction());
 
-        petPanel.setBackground(new Color(255, 255, 255, 0)); // make panel transparent
-        petPanel.setLayout(new GridLayout(2, 2));
+        upperPetPanel.setLayout(new GridLayout(2, 2));
 
-        petPanel.add(label1);
-        petPanel.add(new JLabel());
-        petPanel.add(scrollPane);
-        petPanel.add(new JLabel());
+        upperPetPanel.add(availablePetaLabel);
+        upperPetPanel.add(new JLabel());
+        upperPetPanel.add(scrollPane);
+        upperPetPanel.add(new JLabel());
 
-        petPanel2.setBackground(new Color(255, 255, 255, 0)); // make panel transparent
-        petPanel2.setLayout(new GridLayout(5, 3));
+        lowerPetPanel.setBackground(new Color(255, 255, 255, 0)); // make panel transparent
+        lowerPetPanel.setLayout(new GridLayout(5, 3));
 
-        petPanel2.add(label);
-        petPanel2.add(new JLabel());
-        petPanel2.add(new JLabel());
-        petPanel2.add(selectedPet);
-        petPanel2.add(new JLabel());
-        petPanel2.add(new JLabel());
-        petPanel2.add(new JLabel());
-        petPanel2.add(new JLabel());
-        petPanel2.add(new JLabel());
-        petPanel2.add(new JLabel());
-        petPanel2.add(new JLabel());
-        petPanel2.add(policyButton);
+        lowerPetPanel.add(label);
+        lowerPetPanel.add(new JLabel());
+        lowerPetPanel.add(new JLabel());
+        lowerPetPanel.add(selectedPet);
+        lowerPetPanel.add(new JLabel());
+        lowerPetPanel.add(new JLabel());
+        lowerPetPanel.add(new JLabel());
+        lowerPetPanel.add(new JLabel());
+        lowerPetPanel.add(new JLabel());
+        lowerPetPanel.add(new JLabel());
+        lowerPetPanel.add(new JLabel());
+        lowerPetPanel.add(policyButton);
 
-        add(petPanel);
-        add(petPanel2);
+        add(upperPetPanel);
+        add(lowerPetPanel);
         try {
-            filew=new FileWriter("requisites.txt",true);
+            filew = new FileWriter("requisites.txt", true);
         } catch (IOException ex) {
             Logger.getLogger(Addoption.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,61 +97,61 @@ public class Addoption extends JFrame {
         updateModel();
     }
 
- class ListListener implements ListSelectionListener {
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-        // Get the selected pet
-        String selection = petList.getSelectedValue();
+    class ListListener implements ListSelectionListener {
 
-        // Put the selected pet in the text field.
-        selectedPet.setText(selection);
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            // Get the selected pet
+            String selection = petList.getSelectedValue();
 
-        // Show a confirmation dialog
-        int confirmation = JOptionPane.showConfirmDialog(
-                Addoption.this,
-                "Are you sure?",
-                "Adoption Confirmation",
-                JOptionPane.YES_NO_OPTION
-        );
+            // Put the selected pet in the text field.
+            selectedPet.setText(selection);
 
-        if (confirmation == JOptionPane.YES_OPTION) {
-            String petName = selectedPet.getText();
-            try {
-                // Use try-with-resources to ensure BufferedWriter is closed
-                try (BufferedWriter bufferdw = new BufferedWriter(filew);
-                     PrintWriter out = new PrintWriter(bufferdw)) {
-                    out.println(petName);
-                    bufferdw.newLine();
+            // Show a confirmation dialog
+            int confirmation = JOptionPane.showConfirmDialog(
+                    Addoption.this,
+                    "Are you sure?",
+                    "Adoption Confirmation",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirmation == JOptionPane.YES_OPTION) {
+                String petName = selectedPet.getText();
+                try {
+                    // Use try-with-resources to ensure BufferedWriter is closed
+                    try ( BufferedWriter bufferdw = new BufferedWriter(filew);  PrintWriter out = new PrintWriter(bufferdw)) {
+                        out.println(petName);
+                        bufferdw.newLine();
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
-            // User confirmed, show the adoption confirmation message
-            JOptionPane.showMessageDialog(Addoption.this, "We will contact you soon", "Adoption Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                // User confirmed, show the adoption confirmation message
+                JOptionPane.showMessageDialog(Addoption.this, "We will contact you soon", "Adoption Confirmation", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
-}
-
-    
 
     // Action class for the Policy button
     private class PolicyAction extends AbstractAction {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             // Display the policy information in a JOptionPane
             JOptionPane.showMessageDialog(Addoption.this,
-                    "Our Adoption Policy:\n\n" +
-                            "1. Complete the adoption application.\n" +
-                            "2. Wait for our staff to review your application.\n" +
-                            "3. Once approved, visit the shelter to finalize the adoption process.\n\n" +
-                            "Thank you for considering adoption!",
+                    "Our Adoption Policy:\n\n"
+                    + "1. Complete the adoption application.\n"
+                    + "2. Wait for our staff to review your application.\n"
+                    + "3. Once approved, visit the shelter to finalize the adoption process.\n\n"
+                    + "Thank you for considering adoption!",
                     "Adoption Policy",
                     JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     static class BackgroundImagePanel extends JPanel {
+
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -171,19 +159,19 @@ public class Addoption extends JFrame {
         }
     }
 //our exception
-   public void loadDataFromFile(String filename) throws FileIOException {
-    // Implement code to read data from the file and populate the 'pets' list.
-    try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            pets.add(line);
-        }
-    } catch (IOException e) {
-        // Throw a custom exception with a more informative error message
-        throw new FileIOException("Error reading data from file: " + filename, e);
-    }
-}
 
+    public void loadDataFromFile(String filename) throws FileIOException {
+        // Implement code to read data from the file and populate the 'pets' list.
+        try ( BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                pets.add(line);
+            }
+        } catch (IOException e) {
+            // Throw a custom exception with a more informative error message
+            throw new FileIOException("Error reading data from file: " + filename, e);
+        }
+    }
 
     public void updateModel() {
         model.clear(); // Clear the existing items in the model
@@ -191,12 +179,4 @@ public class Addoption extends JFrame {
             model.addElement(pet); // Add each pet to the model
         }
     }
-
-   /* public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Addoption adoption = new Addoption();
-            adoption.setVisible(true);
-        });
-    }*/
-    
 }

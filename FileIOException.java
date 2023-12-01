@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package addoption;
+package petshelter;
 
-/**
- *
- * @author 96656
- */
 public class FileIOException extends Exception {
     public FileIOException() {
         super();
