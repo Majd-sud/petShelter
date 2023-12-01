@@ -1,4 +1,6 @@
-package petshelter;
+
+package addoption;
+
 
 import java.awt.*;
 import java.awt.event.*;
@@ -119,7 +121,8 @@ public class Addoption extends JFrame {
                 String petName = selectedPet.getText();
                 try {
                     // Use try-with-resources to ensure BufferedWriter is closed
-                    try ( BufferedWriter bufferdw = new BufferedWriter(filew);  PrintWriter out = new PrintWriter(bufferdw)) {
+                    try ( BufferedWriter bufferdw = new BufferedWriter(filew);  
+                        PrintWriter out = new PrintWriter(bufferdw)) {
                         out.println(petName);
                         bufferdw.newLine();
                     }

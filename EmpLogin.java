@@ -1,4 +1,4 @@
-package petshelter;
+package addoption;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +15,7 @@ public class EmpLogin extends JFrame {
     JLabel passwordLabel = new JLabel("Password: ");
     JPasswordField empPasswordField = new JPasswordField();
 
+    // Constructor for EmpLogin class
     public EmpLogin() {
         setTitle("Employee login");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -42,19 +43,26 @@ public class EmpLogin extends JFrame {
         empLogPanel.add(empLoginButt);
         add(empLogPanel, BorderLayout.CENTER);
 
+        // ActionListener for the "Log In" button
         empLoginButt.addActionListener(new ActionListenerExample());
     }
 
+    // ActionListenerExample class for handling button click events
     public class ActionListenerExample implements ActionListener {
 
+        // Method invoked when the "Log In" button is clicked
         public void actionPerformed(ActionEvent e) {
             String user = userNameTfield.getText();
             String password = new String(empPasswordField.getPassword());
+
+            // Check if the entered username and password are correct
             if (user.equals("a") && password.equals("A")) {
+                // If correct, open the Employee window and close the current login window
                 Employee emplogin = new Employee();
                 emplogin.setVisible(true);
                 dispose(); // Close the current login window
             } else {
+                // If incorrect, show an error message
                 JOptionPane.showMessageDialog(null, "Login Failed!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -63,6 +71,7 @@ public class EmpLogin extends JFrame {
     // BackgroundImagePanel class for setting the background image
     static class BackgroundImagePanel extends JPanel {
 
+        // Method for painting the background image
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);

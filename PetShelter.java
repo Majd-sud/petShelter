@@ -1,6 +1,5 @@
-package petshelter;
 
-
+package addoption;
 
 
 import java.awt.*;
@@ -24,7 +23,7 @@ public class PetShelter extends JFrame {
     public PetShelter() {
         setTitle("Pet Shelter");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setJMenuBar(createMenuBar());
+        setJMenuBar(createMenuBar());
 
         setLayout(new BorderLayout()); // Use BorderLayout for the frame
 
@@ -35,27 +34,25 @@ public class PetShelter extends JFrame {
 
         label1.setFont(new Font("Serif", Font.CENTER_BASELINE,30));
         label1.setForeground(new Color(103, 49, 71)); // Brown color using RGB values
-     
-         Color darkerButtonColor = label1.getForeground().darker();
-        emp.setForeground(new Color(103, 49, 71)); 
-costmr.setForeground(new Color(103, 49, 71)); 
+
+        Color darkerButtonColor = label1.getForeground().darker();
+        emp.setForeground(new Color(103, 49, 71));
+        costmr.setForeground(new Color(103, 49, 71));
 
         panel1.setLayout(new GridLayout(5, 1));
         panel1.setBorder(new EmptyBorder(10, 10, 10, 10));
-        
-                panel1.setBackground(new Color(255, 255, 255, 0));
+
+        panel1.setBackground(new Color(255, 255, 255, 0));
         panel1.add(new JLabel());
 
         panel1.add(new JLabel());
         panel1.add(label1);
-        
+
         panel1.add(emp);
 
         panel1.add(costmr);
 
-      
-
-      add(panel1, BorderLayout.CENTER);
+        add(panel1, BorderLayout.CENTER);
 
         backgroundImage = new ImageIcon(PetShelter.class.getResource("11.png")).getImage();
 
@@ -79,7 +76,7 @@ costmr.setForeground(new Color(103, 49, 71));
         }
     }
 
-    public class ActionListenerExample implements ActionListener   {
+    public class ActionListenerExample implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == emp) {
@@ -95,49 +92,46 @@ costmr.setForeground(new Color(103, 49, 71));
             }
         }
     }
-    
-    
+
     private JMenuBar createMenuBar() {
-    JMenuBar menuBar = new JMenuBar();
+        JMenuBar menuBar = new JMenuBar();
 
-    // Create the "File" menu
-    JMenu fileMenu = new JMenu("File");
+        // Create the "File" menu
+        JMenu fileMenu = new JMenu("File");
 
-    // Create the "Exit" menu item
-    JMenuItem exitMenuItem = new JMenuItem("Exit");
-    exitMenuItem.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            System.exit(0); 
-        }
-    });
+        // Create the "Exit" menu item
+        JMenuItem exitMenuItem = new JMenuItem("Exit");
+        exitMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
-    fileMenu.add(exitMenuItem);
+        fileMenu.add(exitMenuItem);
 
-    JMenu helpMenu = new JMenu("Help");
+        JMenu helpMenu = new JMenu("Help");
 
-    JMenuItem helpMenuItem = new JMenuItem("Contact us");
-    helpMenuItem.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog (null,
-                    "Contact us via:\n\n" +
-                            "-Emai;petShelterORG60@gmail.com\n" +
-                            "- PhoneNumber;0544378198.\n" +
-                            "address;jeddaj.\n\n" +
-                    JOptionPane.INFORMATION_MESSAGE);
-        }
-        
-    });
+        JMenuItem helpMenuItem = new JMenuItem("Contact us");
+        helpMenuItem.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent e) {
+        JOptionPane.showMessageDialog (null,
+                "Contact us via:\n\n" +
+                        "-Emai;petShelterORG60@gmail.com\n" +
+                        "- PhoneNumber;0544378198.\n" +
+                        "address;jeddaj.\n\n" +
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+        });
 
-    helpMenu.add(helpMenuItem);
+        helpMenu.add(helpMenuItem);
 
-    menuBar.add(fileMenu);
-    menuBar.add(helpMenu);
+        menuBar.add(fileMenu);
+        menuBar.add(helpMenu);
 
-    return menuBar;
-}
+        return menuBar;
+    }
 
     public static void main(String[] args) {
-     
         new PetShelter();
     }
 }

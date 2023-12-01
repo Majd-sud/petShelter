@@ -1,4 +1,4 @@
-package petshelter;
+package addoption;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
+// Customer login class
 public class CostmrLogin extends JFrame {
 
     static Image backgroundImage;
@@ -20,8 +21,10 @@ public class CostmrLogin extends JFrame {
     JLabel passwordLabel = new JLabel("Password: ");
     JPasswordField costmrPasswordTfield = new JPasswordField();
 
+    // Constructor for CostmrLogin class
     public CostmrLogin() throws IOException {
 
+        // JFrame setup
         setTitle("Customer Login");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -38,8 +41,9 @@ public class CostmrLogin extends JFrame {
         createAccountButt.setForeground(new Color(103, 49, 71));
         setSize(400, 430);
         setLocationRelativeTo(null);
-    
-        customerLogPanel.setBackground(new Color(255, 255, 255, 0));//make panel backgrond transparent
+
+        // Set background panel
+        customerLogPanel.setBackground(new Color(255, 255, 255, 0));//make panel background transparent
 
         customerLogPanel.setLayout(new GridLayout(10, 1));
         customerLogPanel.add(new JLabel());
@@ -49,13 +53,13 @@ public class CostmrLogin extends JFrame {
         customerLogPanel.add(userNameTfield);
         customerLogPanel.add(passwordLabel);
         customerLogPanel.add(costmrPasswordTfield);
-
         customerLogPanel.add(costmrLoginButt);
         customerLogPanel.add(noAccLabel);
         customerLogPanel.add(createAccountButt);
         add(customerLogPanel, BorderLayout.NORTH);
 
-        costmrLoginButt.addActionListener(new ActionLISTner());
+        // Action listeners for buttons
+        costmrLoginButt.addActionListener(new ActionListenerExample());
 
         createAccountButt.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -66,18 +70,19 @@ public class CostmrLogin extends JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(CostmrLogin.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
             }
         });
     }
 
-    public class ActionLISTner implements ActionListener {
+    // Action listener class for handling "Log In" button click
+    public class ActionListenerExample implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
             try {
                 String user = userNameTfield.getText();
                 String password = new String(costmrPasswordTfield.getPassword());
 
+                // Verify customer account
                 if (verifyAccount(user, password)) {
                     Addoption costmrlogin = new Addoption();
                     costmrlogin.setVisible(true);
@@ -88,12 +93,12 @@ public class CostmrLogin extends JFrame {
                 Logger.getLogger(CostmrLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-//our exception
 
+        // Method to verify customer account
         private boolean verifyAccount(String username, String password) throws FileIOException {
             String filePath = "CostmrLogin.txt";
 
-            try ( BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] parts = line.split(","); // or use the correct delimiter
@@ -109,7 +114,6 @@ public class CostmrLogin extends JFrame {
                         // Handle the case where the line does not have the expected format
                         System.out.println("Skipping line with unexpected format: " + line);
                     }
-
                 }
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(CostmrLogin.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,9 +135,9 @@ public class CostmrLogin extends JFrame {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
-
 }
 
+// RegistrationForm class for customer registration
 class RegistrationForm extends JFrame {
 
     static Image backgroundImage;
@@ -155,8 +159,10 @@ class RegistrationForm extends JFrame {
     BufferedWriter bufferedWriter;
     PrintWriter out;
 
+    // Constructor for RegistrationForm class
     public RegistrationForm() throws IOException {
 
+        // JFrame setup
         setTitle("WELCOME");
         setLayout(new FlowLayout());
         newCustomerPanel.setBackground(new Color(255, 255, 255, 0));
@@ -197,14 +203,17 @@ class RegistrationForm extends JFrame {
         newCustomerPanel.add(newUsernameField);
         newCustomerPanel.add(newPasswordLabel);
         newCustomerPanel.add(newPasswordField);
+
+        // Setup file writer for customer registration data
         fileWriter = new FileWriter("CostmrLogin.txt", true);
 
+        // Action listener for registerButton
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 try {
-
+                    // Write customer registration data to file
                     bufferedWriter = new BufferedWriter(fileWriter);
                     out = new PrintWriter(bufferedWriter);
                     out.println(nameField.getText());
@@ -220,14 +229,14 @@ class RegistrationForm extends JFrame {
                 }
                 JOptionPane.showMessageDialog(null, "Registration Successful!");
             }
+        });
 
-        }
-        );
         newCustomerPanel.add(registerButton);
 
         add(newCustomerPanel, BorderLayout.CENTER);
     }
 
+    // BackgroundImagePanel class for setting the background image
     static class BackgroundImagePanel extends JPanel {
 
         @Override
@@ -236,5 +245,4 @@ class RegistrationForm extends JFrame {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
-
 }
